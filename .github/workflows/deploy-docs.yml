@@ -1,9 +1,9 @@
-name: Deploy Docs to GitHub Pages
+name: Deploy Arabic Docs
 
 on:
   push:
     branches:
-      - main # تأكد أن هذا هو اسم فرعك الرئيسي (Main أو Master)
+      - main
 
 permissions:
   contents: write
@@ -13,23 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
-      - name: Install dependencies
+      - name: Install MkDocs Material
         run: |
-          pip install poetry
-          # تثبيت الاعتمادات الأساسية
-          poetry install
-          # تثبيت أدوات التوثيق يدوياً لتجنب خطأ Group not found
-          pip install mkdocs-material mkdocs-static-i18n
+          pip install mkdocs-material
 
       - name: Build and Deploy
         run: |
-          # بناء التوثيق ورفعه لفرع gh-pages
-          poetry run mkdocs gh-deploy --force
+          # سيقوم باستخدام ملف mkdocs.yml الذي أنشأناه للتو
+          mkdocs gh-deploy --force
