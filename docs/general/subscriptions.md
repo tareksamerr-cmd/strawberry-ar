@@ -1,14 +1,12 @@
 ---
-title: Subscriptions
+title: الاشتراكات (Subscriptions)
 ---
 
-# Subscriptions
+# الاشتراكات (Subscriptions)
 
-In GraphQL you can use subscriptions to stream data from a server. To enable
-this with Strawberry your server must support ASGI and websockets or use the
-AIOHTTP integration.
+في GraphQL، يمكنك استخدام الاشتراكات (subscriptions) لبث البيانات من الخادم. لتمكين ذلك باستخدام Strawberry، يجب أن يدعم الخادم الخاص بك واجهة بوابة خادم غير متزامنة (ASGI) ومقابس الويب (websockets) أو استخدام تكامل AIOHTTP.
 
-This is how you define a subscription-capable resolver:
+إليك كيفية تعريف محلل (resolver) قادر على التعامل مع الاشتراكات:
 
 ```python
 import asyncio
@@ -36,21 +34,15 @@ class Subscription:
 schema = strawberry.Schema(query=Query, subscription=Subscription)
 ```
 
-Like queries and mutations, subscriptions are defined in a class and passed to
-the Schema function. Here we create a rudimentary counting function which counts
-from 0 to the target sleeping between each loop iteration.
+مثل الاستعلامات (queries) والطفرات (mutations)، يتم تعريف subscriptions في فئة (class) وتمريرها إلى دالة المخطط (Schema). هنا نقوم بإنشاء دالة عد بسيطة تعد من 0 إلى الهدف مع النوم بين كل تكرار للحلقة.
 
 <Note>
 
-The return type of `count` is `AsyncGenerator` where the first generic argument
-is the actual type of the response, in most cases the second argument should be
-left as `None` (more about Generator typing
-[here](https://docs.python.org/3/library/typing.html#typing.AsyncGenerator)).
+نوع الإرجاع لـ `count` هو `AsyncGenerator` حيث يكون الوسيط العام (generic argument) الأول هو النوع الفعلي للاستجابة، وفي معظم الحالات يجب ترك الوسيط الثاني كـ `None` (المزيد حول كتابة المولدات (Generator typing) [هنا](https://docs.python.org/3/library/typing.html#typing.AsyncGenerator)).
 
 </Note>
 
-We would send the following GraphQL document to our server to subscribe to this
-data stream:
+سنرسل مستند GraphQL التالي إلى خادمنا للاشتراك في تدفق البيانات هذا:
 
 ```graphql
 subscription {
@@ -58,37 +50,21 @@ subscription {
 }
 ```
 
-In this example, the data looks like this as it passes over the websocket:
+في هذا المثال، تبدو البيانات بهذا الشكل أثناء مرورها عبر websocket:
 
-![A view of the data that's been passed via websocket](../images/subscriptions-count-websocket.png)
+![عرض للبيانات التي تم تمريرها عبر websocket](../images/subscriptions-count-websocket.png)
 
-This is a very short example of what is possible. Like with queries and
-mutations the subscription can return any GraphQL type, not only scalars as
-demonstrated here.
+هذا مثال قصير جداً لما هو ممكن. كما هو الحال مع queries و mutations، يمكن للاشتراك إرجاع أي نوع GraphQL، وليس فقط القيم القياسية (scalars) كما هو موضح هنا.
 
-## Authenticating Subscriptions
+## توثيق الاشتراكات (Authenticating Subscriptions)
 
-Without going into detail on [why](https://github.com/websockets/ws/issues/467),
-custom headers cannot be set on websocket requests that originate in browsers.
-Therefore, when making any GraphQL requests that rely on a websocket connection,
-header-based authentication is impossible.
+دون الخوض في تفاصيل [السبب](https://github.com/websockets/ws/issues/467)، لا يمكن تعيين رؤوس (headers) مخصصة على طلبات websocket التي تنشأ في المتصفحات. لذلك، عند إجراء أي طلبات GraphQL تعتمد على اتصال websocket، يكون التوثيق القائم على الرؤوس (header-based authentication) مستحيلاً.
 
-Other popular GraphQL solutions, like Apollo for example, implement
-functionality to pass information from the client to the server at the point of
-websocket connection initialisation. In this way, information that is relevant
-to the websocket connection initialisation and to the lifetime of the connection
-overall can be passed to the server before any data is streamed back by the
-server. As such, it is not limited to only authentication credentials!
+حلول GraphQL الشائعة الأخرى، مثل Apollo على سبيل المثال، تنفذ وظائف لتمرير المعلومات من العميل إلى الخادم عند نقطة تهيئة اتصال websocket. بهذه الطريقة، يمكن تمرير المعلومات ذات الصلة بتهيئة اتصال websocket وعمر الاتصال بشكل عام إلى الخادم قبل بث أي بيانات من قبل الخادم. على هذا النحو، لا يقتصر الأمر على بيانات اعتماد التوثيق فقط!
 
-Strawberry's implementation follows that of Apollo's, which as documentation for
-[client](https://www.apollographql.com/docs/react/data/subscriptions/#5-authenticate-over-websocket-optional)
-and
-[server](https://www.apollographql.com/docs/apollo-server/data/subscriptions/#operation-context)
-implementations, by reading the contents of the initial websocket connection
-message into the `info.context` object.
+يتبع تنفيذ Strawberry تنفيذ Apollo، والذي يحتوي على توثيق لتنفيذات [العميل](https://www.apollographql.com/docs/react/data/subscriptions/#5-authenticate-over-websocket-optional) و [الخادم](https://www.apollographql.com/docs/apollo-server/data/subscriptions/#operation-context)، من خلال قراءة محتويات رسالة اتصال websocket الأولية في كائن `info.context`.
 
-With Apollo-client as an example of how to send this initial connection
-information, one defines a `ws-link` as:
+مع استخدام Apollo-client كمثال لكيفية إرسال معلومات الاتصال الأولية هذه، يتم تعريف `ws-link` كـ:
 
 ```javascript
 import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
@@ -104,9 +80,7 @@ const wsLink = new GraphQLWsLink(
 );
 ```
 
-and then, upon the establishment of the Susbcription request and underlying
-websocket connection, Strawberry injects this `connectionParams` object as
-follows:
+وبعد ذلك، عند إنشاء طلب Susbcription واتصال websocket الأساسي، يقوم Strawberry بحقن كائن `connectionParams` هذا كما يلي:
 
 ```python
 import asyncio
@@ -133,7 +107,7 @@ class Subscription:
         connection_params: dict = info.context.get("connection_params")
         token: str = connection_params.get(
             "authToken"
-        )  # equal to "Bearer I_AM_A_VALID_AUTH_TOKEN"
+        )  # يساوي "Bearer I_AM_A_VALID_AUTH_TOKEN"
         if not authenticate_token(token):
             raise Exception("Forbidden!")
         for i in range(target):
@@ -144,31 +118,20 @@ class Subscription:
 schema = strawberry.Schema(query=Query, subscription=Subscription)
 ```
 
-Strawberry expects the `connection_params` object to be any type, so the client
-is free to send any valid JSON object as the initial message of the websocket
-connection, which is abstracted as `connectionParams` in Apollo-client, and it
-will be successfully injected into the `info.context` object. It is then up to
-you to handle it correctly!
+يتوقع Strawberry أن يكون كائن `connection_params` من أي نوع، لذا فإن العميل حر في إرسال أي كائن JSON صالح كرسالة أولية لاتصال websocket، والذي يتم تجريده كـ `connectionParams` في Apollo-client، وسيتم حقنه بنجاح في كائن `info.context`. الأمر متروك لك بعد ذلك للتعامل معه بشكل صحيح!
 
-## Advanced Subscription Patterns
+## أنماط الاشتراك المتقدمة (Advanced Subscription Patterns)
 
-Typically a GraphQL subscription is streaming something more interesting back.
-With that in mind your subscription function can return one of:
+عادةً ما يقوم اشتراك GraphQL ببث شيء أكثر إثارة للاهتمام. مع وضع ذلك في الاعتبار، يمكن لدالة الاشتراك الخاصة بك إرجاع أحد:
 
-- `AsyncIterator`, or
-- `AsyncGenerator`
+- `AsyncIterator` (مكرر غير متزامن)، أو
+- `AsyncGenerator` (مولد غير متزامن)
 
-Both of these types are documented in [PEP-525][pep-525]. Anything yielded from
-these types of resolvers will be shipped across the websocket. Care needs to be
-taken to ensure the returned values conform to the GraphQL schema.
+كلا هذين النوعين موثقان في [PEP-525][pep-525]. أي شيء يتم إنتاجه (yielded) من هذه الأنواع من resolvers سيتم شحنه عبر websocket. يجب توخي الحذر لضمان توافق القيم المعادة مع Schema الخاص بـ GraphQL.
 
-The benefit of an AsyncGenerator, over an iterator, is that the complex business
-logic can be broken out into a separate module within your codebase. Allowing
-you to keep the resolver logic succinct.
+فائدة AsyncGenerator، مقارنة بالمكرر (iterator)، هي أنه يمكن تقسيم منطق العمل المعقد إلى وحدة منفصلة داخل قاعدة الكود الخاصة بك. مما يسمح لك بالحفاظ على منطق resolver موجزاً.
 
-The following example is similar to the one above, except it returns an
-AsyncGenerator to the ASGI server which is responsible for streaming
-subscription results until the Generator exits.
+المثال التالي مشابه للمثال أعلاه، باستثناء أنه يعيد AsyncGenerator إلى خادم ASGI المسؤول عن بث نتائج الاشتراك حتى يخرج المولد (Generator).
 
 ```python
 import strawberry
@@ -180,11 +143,10 @@ from typing import Any, AsyncGenerator, AsyncIterator, Coroutine, Optional
 
 async def wait_for_call(coro: Coroutine[Any, Any, bytes]) -> Optional[bytes]:
     """
-    wait_for_call calls the supplied coroutine in a wait_for block.
+    wait_for_call تستدعي الكوروتين المزود في كتلة wait_for.
 
-    This mitigates cases where the coroutine doesn't yield until it has
-    completed its task. In this case, reading a line from a StreamReader; if
-    there are no `\n` line chars in the stream the function will never exit
+    هذا يخفف من الحالات التي لا ينتج فيها الكوروتين حتى يكمل مهمته.
+    في هذه الحالة، قراءة سطر من StreamReader؛ إذا لم تكن هناك أحرف سطر `\n` في التدفق، فلن تخرج الدالة أبداً.
     """
     try:
         return await asyncio.wait_for(coro(), timeout=0.1)
@@ -194,8 +156,7 @@ async def wait_for_call(coro: Coroutine[Any, Any, bytes]) -> Optional[bytes]:
 
 async def lines(stream: streams.StreamReader) -> AsyncIterator[str]:
     """
-    lines reads all lines from the provided stream, decoding them as UTF-8
-    strings.
+    lines تقرأ جميع الأسطر من التدفق المزود، وتفك تشفيرها كسلاسل UTF-8.
     """
     while True:
         b = await wait_for_call(stream.readline)
@@ -207,7 +168,7 @@ async def lines(stream: streams.StreamReader) -> AsyncIterator[str]:
 
 async def exec_proc(target: int) -> subprocess.Process:
     """
-    exec_proc starts a sub process and returns the handle to it.
+    exec_proc تبدأ عملية فرعية وتعيد المقبض الخاص بها.
     """
     return await asyncio.create_subprocess_exec(
         "/bin/bash",
@@ -219,17 +180,16 @@ async def exec_proc(target: int) -> subprocess.Process:
 
 async def tail(proc: subprocess.Process) -> AsyncGenerator[str, None]:
     """
-    tail reads from stdout until the process finishes
+    tail تقرأ من stdout حتى تنتهي العملية
     """
-    # Note: race conditions are possible here since we're in a subprocess. In
-    # this case the process can finish between the loop predicate and the call
-    # to read a line from stdout. This is a good example of why you need to
-    # be defensive by using asyncio.wait_for in wait_for_call().
+    # ملاحظة: حالات السباق (race conditions) ممكنة هنا لأننا في عملية فرعية.
+    # في هذه الحالة، يمكن أن تنتهي العملية بين مسند الحلقة واستدعاء قراءة سطر من stdout.
+    # هذا مثال جيد على سبب حاجتك لأن تكون دفاعياً باستخدام asyncio.wait_for في wait_for_call().
     while proc.returncode is None:
         async for l in lines(proc.stdout):
             yield l
     else:
-        # read anything left on the pipe after the process has finished
+        # قراءة أي شيء متبقٍ على الأنبوب بعد انتهاء العملية
         async for l in lines(proc.stdout):
             yield l
 
@@ -254,23 +214,21 @@ schema = strawberry.Schema(query=Query, subscription=Subscription)
 
 [pep-525]: https://www.python.org/dev/peps/pep-0525/
 
-## Unsubscribing subscriptions
+## إلغاء الاشتراكات (Unsubscribing subscriptions)
 
-In GraphQL, it is possible to unsubscribe from a subscription. Strawberry
-supports this behaviour, and is done using a `try...except` block.
+في GraphQL، من الممكن إلغاء الاشتراك من اشتراك ما. يدعم Strawberry هذا السلوك، ويتم ذلك باستخدام كتلة `try...except`.
 
-In Apollo-client, closing a subscription can be achieved like the following:
+في Apollo-client، يمكن تحقيق إغلاق الاشتراك كما يلي:
 
 ```javascript
 const client = useApolloClient();
 const subscriber = client.subscribe({query: ...}).subscribe({...})
 // ...
-// done with subscription. now unsubscribe
+// تم الانتهاء من الاشتراك. الآن قم بإلغاء الاشتراك
 subscriber.unsubscribe();
 ```
 
-Strawberry can capture when a subscriber unsubscribes using an
-`asyncio.CancelledError` exception.
+يمكن لـ Strawberry التقاط متى يقوم المشترك بإلغاء الاشتراك باستخدام استثناء `asyncio.CancelledError`.
 
 ```python
 import asyncio
@@ -279,7 +237,7 @@ from uuid import uuid4
 
 import strawberry
 
-# track active subscribers
+# تتبع المشتركين النشطين
 event_messages = {}
 
 
@@ -299,34 +257,23 @@ class Subscription:
 
                 await asyncio.sleep(1)
         except asyncio.CancelledError:
-            # stop listening to events
+            # التوقف عن الاستماع للأحداث
             del event_messages[subscription_id]
 ```
 
-## GraphQL over WebSocket protocols
+## بروتوكولات GraphQL عبر WebSocket (GraphQL over WebSocket protocols)
 
-Strawberry support both the legacy
-[graphql-ws](https://github.com/apollographql/subscriptions-transport-ws) and
-the newer recommended
-[graphql-transport-ws](https://github.com/enisdenjo/graphql-ws) WebSocket
-sub-protocols.
+يدعم Strawberry كلاً من بروتوكول [graphql-ws](https://github.com/apollographql/subscriptions-transport-ws) القديم وبروتوكول [graphql-transport-ws](https://github.com/enisdenjo/graphql-ws) الأحدث الموصى به.
 
 <Note>
 
-The `graphql-transport-ws` protocols repository is called `graphql-ws`. However,
-`graphql-ws` is also the name of the legacy protocol. This documentation always
-refers to the protocol names.
+يسمى مستودع بروتوكولات `graphql-transport-ws` بـ `graphql-ws`. ومع ذلك، فإن `graphql-ws` هو أيضاً اسم البروتوكول القديم. يشير هذا التوثيق دائماً إلى أسماء البروتوكولات.
 
 </Note>
 
-Note that the `graphql-ws` sub-protocol is mainly supported for backwards
-compatibility. Read the
-[graphql-ws-transport protocols announcement](https://the-guild.dev/blog/graphql-over-websockets)
-to learn more about why the newer protocol is preferred.
+لاحظ أن البروتوكول الفرعي `graphql-ws` مدعوم بشكل أساسي للتوافق مع الإصدارات السابقة. اقرأ [إعلان بروتوكولات graphql-ws-transport](https://the-guild.dev/blog/graphql-over-websockets) لمعرفة المزيد حول سبب تفضيل البروتوكول الأحدث.
 
-Strawberry allows you to choose which protocols you want to accept. All
-integrations supporting subscriptions can be configured with a list of
-`subscription_protocols` to accept. By default, all protocols are accepted.
+يسمح لك Strawberry باختيار البروتوكولات التي تريد قبولها. يمكن تكوين جميع التكاملات التي تدعم subscriptions بقائمة من `subscription_protocols` لقبولها. بشكل افتراضي، يتم قبول جميع البروتوكولات.
 
 ### AIOHTTP
 
@@ -367,9 +314,8 @@ from strawberry.channels import GraphQLProtocolTypeRouter
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
 django_asgi_app = get_asgi_application()
 
-# Import your Strawberry schema after creating the django ASGI application
-# This ensures django.setup() has been called before any ORM models are imported
-# for the schema.
+# استورد مخطط Strawberry الخاص بك بعد إنشاء تطبيق django ASGI
+# هذا يضمن استدعاء django.setup() قبل استيراد أي نماذج ORM للمخطط.
 from mysite.graphql import schema
 
 application = GraphQLProtocolTypeRouter(
@@ -378,8 +324,7 @@ application = GraphQLProtocolTypeRouter(
 )
 ```
 
-Note: Check the [channels integraton](../integrations/channels.md) page for more
-information regarding it.
+ملاحظة: تحقق من صفحة [تكامل Channels](../integrations/channels.md) لمزيد من المعلومات المتعلقة بها.
 
 ### FastAPI
 
@@ -427,17 +372,10 @@ app.add_url_rule(
 )
 ```
 
-## Single result operations
+## عمليات النتيجة الواحدة (Single result operations)
 
-In addition to _streaming operations_ (i.e. subscriptions), the
-`graphql-transport-ws` protocol supports so called _single result operations_
-(i.e. queries and mutations).
+بالإضافة إلى _عمليات البث_ (أي subscriptions)، يدعم بروتوكول `graphql-transport-ws` ما يسمى بـ _عمليات النتيجة الواحدة_ (أي queries و mutations).
 
-This enables clients to use one protocol and one connection for queries,
-mutations and subscriptions. Take a look at the
-[protocol's repository](https://github.com/enisdenjo/graphql-ws) to learn how to
-correctly set up the graphql client of your choice.
+هذا يمكن العملاء من استخدام بروتوكول واحد واتصال واحد لـ queries و mutations و subscriptions. ألقِ نظرة على [مستودع البروتوكول](https://github.com/enisdenjo/graphql-ws) لمعرفة كيفية إعداد عميل graphql الذي تختاره بشكل صحيح.
 
-Strawberry supports single result operations out of the box when the
-`graphql-transport-ws` protocol is enabled. Single result operations are normal
-queries and mutations, so there is no need to adjust any resolvers.
+يدعم Strawberry عمليات النتيجة الواحدة بشكل مباشر عند تمكين بروتوكول `graphql-transport-ws`. عمليات النتيجة الواحدة هي queries و mutations عادية، لذا لا داعي لتعديل أي resolvers.
