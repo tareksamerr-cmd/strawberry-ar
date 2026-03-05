@@ -1,15 +1,14 @@
 ---
-title: Errors
+title: الأخطاء
 ---
 
-# Errors in strawberry
+# الأخطاء في Strawberry
 
-Strawberry has built-in errors for when something goes wrong with the creation
-and usage of the schema.
+تحتوي Strawberry على أخطاء مدمجة للأوقات التي يحدث فيها خطأ أثناء إنشاء
+واستخدام المخطط (schema).
 
-It also provides a custom exception handler for improving how errors are printed
-and to make it easier to find the exception source, for example the following
-code:
+كما توفر معالج استثناءات مخصص (custom exception handler) لتحسين طريقة طباعة الأخطاء
+ولتسهيل العثور على مصدر الاستثناء، على سبيل المثال الكود التالي:
 
 ```python
 import strawberry
@@ -25,7 +24,7 @@ class Query:
 schema = strawberry.Schema(query=Query)
 ```
 
-will show the following exception on the command line:
+سيظهر الاستثناء التالي في سطر الأوامر:
 
 ```text
 
@@ -45,12 +44,14 @@ will show the following exception on the command line:
 
 ```
 
-These errors are only enabled when `rich` and `libcst` are installed. You can
-install Strawberry with errors enabled by running:
+هذه الأخطاء ممكنة فقط عند تثبيت rich و libcst. يمكنك
+تثبيت Strawberry مع تفعيل الأخطاء عن طريق تشغيل:
 
 ```shell
 pip install "strawberry-graphql[cli]"
 ```
 
-If you want to disable the errors you can do so by setting the
-`STRAWBERRY_DISABLE_RICH_ERRORS` environment variable to `1`.
+إذا أردت تعطيل الأخطاء، يمكنك ذلك عن طريق تعيين
+متغير البيئة STRAWBERRY_DISABLE_RICH_ERRORS إلى 1.
+
+```
