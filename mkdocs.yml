@@ -1,9 +1,22 @@
 site_name: Strawberry GraphQL بالعربي
 site_url: https://tareksamerr-cmd.github.io/strawberry-ar/
+
 theme:
   name: material
-  language: ar  # لتفعيل اتجاه النص من اليمين لليسار RTL
+  language: ar
+  direction: rtl
   palette:
-    primary: red # لون الفراولة المميز
+    # الألوان القريبة من هوية Strawberry
+    - scheme: default
+      primary: pink
+      accent: indigo
+    - scheme: slate # للوضع الليلي
+      primary: pink
+      accent: indigo
+  features:
+    - navigation.tabs # لإظهار القائمة العلوية مثل الموقع الرسمي
+    - navigation.sections
+    - search.highlight
+    - content.code.copy # لسهولة نسخ الأكواد
 
 docs_dir: docs/ # المسار الذي يحتوي على ملفات الـ Markdown (.md)
