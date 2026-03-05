@@ -1,15 +1,14 @@
 ---
-title: Queries
+title: الاستعلامات (Queries)
 ---
 
-# Queries
+# الاستعلامات (Queries)
 
-In GraphQL you use queries to fetch data from a server. In Strawberry you can
-define the data your server provides by defining query types.
+في GraphQL، تستخدم الاستعلامات (queries) لجلب البيانات من الخادم. في Strawberry، يمكنك تحديد البيانات التي يوفرها خادمك عن طريق تعريف أنواع الاستعلامات (query types).
 
-By default all the fields the API exposes are nested under a root Query type.
+بشكل افتراضي، يتم تجميع جميع الحقول التي تعرضها واجهة برمجة التطبيقات (API) تحت نوع استعلام جذري (root Query type).
 
-This is how you define a root query type in Strawberry:
+إليك كيفية تعريف نوع استعلام جذري في Strawberry:
 
 ```python
 @strawberry.type
@@ -20,15 +19,11 @@ class Query:
 schema = strawberry.Schema(query=Query)
 ```
 
-This creates a schema where the root type Query has one single field called
-name.
+ينشئ هذا مخططًا حيث يحتوي نوع الاستعلام الجذري (Query) على حقل واحد يسمى name.
 
-As you notice we don't provide a way to fetch data. In order to do so we need to
-provide a `resolver`, a function that knows how to fetch data for a specific
-field.
+كما تلاحظ، نحن لا نوفر طريقة لجلب البيانات. للقيام بذلك، نحتاج إلى توفير `resolver`، وهي دالة تعرف كيفية جلب البيانات لحقل معين.
 
-For example in this case we could have a function that always returns the same
-name:
+على سبيل المثال، في هذه الحالة يمكن أن يكون لدينا دالة تعيد دائمًا نفس الاسم:
 
 ```python
 def get_name() -> str:
@@ -43,9 +38,9 @@ class Query:
 schema = strawberry.Schema(query=Query)
 ```
 
-So now, when requesting the name field, the `get_name` function will be called.
+لذا الآن، عند طلب حقل name، سيتم استدعاء دالة `get_name`.
 
-Alternatively a field can be declared using a decorator:
+بدلاً من ذلك، يمكن الإعلان عن حقل باستخدام مزين (decorator):
 
 ```python
 @strawberry.type
@@ -55,8 +50,7 @@ class Query:
         return "Strawberry"
 ```
 
-The decorator syntax supports specifying a `graphql_type` for cases when the
-return type of the function does not match the GraphQL type:
+يدعم بناء الجملة الخاص بالمزين تحديد `graphql_type` للحالات التي لا يتطابق فيها نوع الإرجاع للدالة مع نوع GraphQL:
 
 ```python
 class User:
@@ -79,10 +73,9 @@ class Query:
         return User(id="ringo", name="Ringo")
 ```
 
-## Arguments
+## الوسائط (Arguments)
 
-GraphQL fields can accept arguments, usually to filter out or retrieve specific
-objects:
+يمكن لحقول GraphQL قبول وسائط، عادةً لتصفية أو استرداد كائنات محددة:
 
 ```python
 FRUITS = [
@@ -102,9 +95,9 @@ class Query:
         return None
 ```
 
-### Argument Descriptions
+### أوصاف الوسائط (Argument Descriptions)
 
-Use `Annotated` to give a field argument a description:
+استخدم `Annotated` لإعطاء وسيط الحقل وصفًا:
 
 ```python
 from typing import Annotated
@@ -122,12 +115,10 @@ class Query:
     ) -> str | None: ...
 ```
 
-### Argument Types
+### أنواع الوسائط (Argument Types)
 
-As with fields, `strawberry.argument` supports specifying a `graphql_type` for
-cases when the argument type of the function does not match the GraphQL type.
-This can be useful for static typing, as custom scalars are not valid type
-annotations.
+كما هو الحال مع الحقول، يدعم `strawberry.argument` تحديد `graphql_type` للحالات التي لا يتطابق فيها نوع الوسيط للدالة مع نوع GraphQL.
+يمكن أن يكون هذا مفيدًا للكتابة الثابتة (static typing)، حيث أن أنواع سكالار المخصصة ليست تعليقات توضيحية صالحة للنوع.
 
 ```python
 BigInt = strawberry.scalar(
