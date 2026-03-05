@@ -1,53 +1,46 @@
 ---
-title: Getting started with Strawberry
+title: البدء مع Strawberry
 ---
 
-# Getting started with Strawberry
+# البدء مع Strawberry
 
-This tutorial will help you:
+سيساعدك هذا البرنامج التعليمي على:
 
-- Obtain a basic understanding of GraphQL principles
-- Define a GraphQL schema using Strawberry
-- Run the Strawberry dev server that lets you execute queries against your
-  schema
+- الحصول على فهم أساسي لمبادئ GraphQL
+- تعريف مخطط GraphQL باستخدام Strawberry
+- تشغيل خادم تطوير Strawberry الذي يتيح لك تنفيذ الاستعلامات (queries) مقابل مخططك
 
-This tutorial assumes that you are familiar with the command line and Python,
-and that you have a recent version of Python (3.10+) installed.
+يفترض هذا البرنامج التعليمي أنك على دراية بسطر الأوامر (command line) و Python، وأن لديك إصدارًا حديثًا من Python (3.10+) مثبتًا.
 
-Strawberry is built on top of Python’s
-[dataclasses](https://realpython.com/python-data-classes/) and
-[type hints](https://docs.python.org/3/library/typing.html) functionality.
+تم بناء Strawberry على أساس وظائف Python لـ [dataclasses](https://realpython.com/python-data-classes/) و [type hints](https://docs.python.org/3/library/typing.html).
 
-## Step 1: Create a new project and install Strawberry
+## الخطوة 1: إنشاء مشروع جديد وتثبيت Strawberry
 
-Let’s create a new folder:
+لنقم بإنشاء مجلد جديد:
 
 ```shell
 mkdir strawberry-demo
 cd strawberry-demo
 ```
 
-After that we need a new virtualenv:
+بعد ذلك نحتاج إلى بيئة افتراضية (virtualenv) جديدة:
 
 ```shell
 python -m venv virtualenv
 ```
 
-Activate the virtualenv and then install strawberry plus the dev server.
+قم بتنشيط الـ virtualenv ثم قم بتثبيت strawberry بالإضافة إلى خادم التطوير.
 
 ```shell
 source virtualenv/bin/activate
 pip install 'strawberry-graphql[cli]'
 ```
 
-## Step 2: Define the schema
+## الخطوة 2: تعريف المخطط (Schema)
 
-Every GraphQL server uses a **schema** to define the structure of the data that
-clients can query. In this example, we will create a server for querying a
-collection of books by title and author.
+يستخدم كل خادم GraphQL **مخططًا (schema)** لتحديد بنية البيانات التي يمكن للعملاء الاستعلام عنها. في هذا المثال، سنقوم بإنشاء خادم للاستعلام عن مجموعة من الكتب حسب العنوان والمؤلف.
 
-In your favorite editor create a file called `schema.py`, with the following
-contents:
+في محرر النصوص المفضل لديك، قم بإنشاء ملف يسمى `schema.py`، بالمحتويات التالية:
 
 ```python
 import typing
@@ -65,16 +58,13 @@ class Query:
     books: typing.List[Book]
 ```
 
-This will create a GraphQL schema where clients will be able to execute a query
-named `books` that will return a list of zero or more books.
+سيؤدي هذا إلى إنشاء مخطط GraphQL حيث سيتمكن العملاء من تنفيذ استعلام (query) يسمى `books` والذي سيعيد قائمة من صفر أو أكثر من الكتب.
 
-## Step 3: Define your data set
+## الخطوة 3: تعريف مجموعة البيانات الخاصة بك
 
-Now that we have our structure of your schema, we can define the data itself.
-Strawberry can work with any data source (for example a database, a REST API,
-files, etc). For this tutorial we will be using hard-coded data.
+الآن بعد أن أصبح لدينا بنية مخططنا، يمكننا تعريف البيانات نفسها. يمكن لـ Strawberry العمل مع أي مصدر بيانات (على سبيل المثال قاعدة بيانات، واجهة برمجة تطبيقات REST، ملفات، إلخ). لهذا البرنامج التعليمي، سنستخدم بيانات مبرمجة (hard-coded data).
 
-Let’s create a function that returns some books.
+لنقم بإنشاء دالة تعيد بعض الكتب.
 
 ```python
 def get_books():
@@ -86,17 +76,13 @@ def get_books():
     ]
 ```
 
-Since strawberry makes uses of python classes to create the schema, this means
-that we can also reuse them to create the data objects.
+نظرًا لأن strawberry تستخدم فئات Python لإنشاء المخطط، فهذا يعني أنه يمكننا أيضًا إعادة استخدامها لإنشاء كائنات البيانات.
 
-## Step 4: Define a resolver
+## الخطوة 4: تعريف محلل (Resolver)
 
-We now have a function that returns some books, but Strawberry doesn’t know it
-should use it when executing a query. To fix this we need to update our query to
-specify the [resolver](/docs/types/resolvers) for our books. A resolver tells
-Strawberry how to fetch the data associated with a particular field.
+لدينا الآن دالة تعيد بعض الكتب، لكن Strawberry لا تعرف أنه يجب عليها استخدامها عند تنفيذ استعلام. لإصلاح ذلك، نحتاج إلى تحديث استعلامنا لتحديد الـ [resolver](/docs/types/resolvers) لكتبنا. يخبر الـ resolver مكتبة Strawberry بكيفية جلب البيانات المرتبطة بحقل معين.
 
-Let’s update our Query:
+لنقم بتحديث استعلامنا:
 
 ```python
 @strawberry.type
@@ -104,58 +90,53 @@ class Query:
     books: typing.List[Book] = strawberry.field(resolver=get_books)
 ```
 
-Using `strawberry.field` allows us to specify a resolver for a particular field.
+يسمح لنا استخدام `strawberry.field` بتحديد resolver لحقل معين.
 
 <Note>
 
-We didn't have to specify any resolver for the Book's fields, this is because
-Strawberry adds a default for each field, returning the value of that field.
+لم نكن بحاجة إلى تحديد أي resolver (مُحلِّل) لحقول الكتاب، وذلك لأن strawberry يُضيف قيمة افتراضية لكل حقل، ويُعيد قيمة ذلك الحقل..
 
 </Note>
 
-## Step 5: Create our schema and run it
+## الخطوة 5: إنشاء مخططنا وتشغيله
 
-We have defined our data and query, now what we need to do is create a GraphQL
-schema and start the server.
+لقد قمنا بتعريف بياناتنا واستعلامنا، والآن ما نحتاج إلى القيام به هو إنشاء مخطط GraphQL وبدء تشغيل الخادم.
 
-To create the schema add the following code:
+لإنشاء المخطط، أضف الكود التالي:
 
 ```python
 schema = strawberry.Schema(query=Query)
 ```
 
-Then run the following command
+ثم قم بتشغيل الأمر التالي:
 
 ```shell
 strawberry dev schema
 ```
 
-This will start a dev server, you should see the following output:
+سيؤدي هذا إلى بدء تشغيل خادم تطوير، ويجب أن ترى الإخراج التالي:
 
 ```text
 Running strawberry on http://0.0.0.0:8000/graphql 🍓
 ```
 
-## Step 6: execute your first query
+## الخطوة 6: تنفيذ استعلامك الأول
 
-We can now execute GraphQL queries. Strawberry comes with a tool called
-**GraphiQL**. To open it go to
-[http://0.0.0.0:8000/graphql](http://0.0.0.0:8000/graphql)
+يمكننا الآن تنفيذ استعلامات GraphQL. يأتي Strawberry مع أداة تسمى **GraphiQL**. لفتحها، انتقل إلى [http://0.0.0.0:8000/graphql](http://0.0.0.0:8000/graphql)
 
-You should see something like this:
+يجب أن ترى شيئًا كهذا:
 
 ![A view of the GraphiQL interface](./images/index-server.png)
 
-The GraphiQL UI includes:
+تتضمن واجهة مستخدم GraphiQL ما يلي:
 
-- A text area (to the left) for writing queries
-- A Play button (the triangle button in the middle) for executing queries
-- A text area (to the right) for viewing query results Views for schema
-  inspection and generated documentation (via tabs on the right side)
+- منطقة نصية (على اليسار) لكتابة الاستعلامات
+- زر تشغيل (الزر المثلث في المنتصف) لتنفيذ الاستعلامات
+- منطقة نصية (على اليمين) لعرض نتائج الاستعلامات. طرق عرض لفحص المخطط والوثائق التي تم إنشاؤها (عبر علامات التبويب على الجانب الأيمن)
 
-Our server supports a single query named books. Let's execute it!
+يدعم خادمنا استعلامًا واحدًا يسمى books. لنقم بتنفيذه!
 
-Paste the following string into the left area and then click the play button:
+الصق السلسلة التالية في المنطقة اليسرى ثم انقر فوق زر التشغيل:
 
 ```graphql
 {
@@ -166,22 +147,21 @@ Paste the following string into the left area and then click the play button:
 }
 ```
 
-You should see the hardcoded data appear on the right side:
+يجب أن تظهر البيانات المبرمجة على الجانب الأيمن:
 
 ![A view of the GraphiQL interface after running a GraphQL query](./images/index-query-example.png)
 
-GraphQL allows clients to query only the fields they need, go ahead and remove
-`author` from the query and run it again. The response should now only show the
-title for each book.
+يسمح GraphQL للعملاء بالاستعلام عن الحقول التي يحتاجونها فقط، امض قدمًا وقم بإزالة `author` من الاستعلام وقم بتشغيله مرة أخرى. يجب أن يعرض الرد الآن فقط عنوان كل كتاب.
 
-## Next steps
+## الخطوات التالية
 
 <!--alex ignore retext-equality -->
 
-Well done! You just created your first GraphQL API using Strawberry 🙌!
+أحسنت! لقد أنشأت للتو أول واجهة برمجة تطبيقات GraphQL باستخدام Strawberry 🙌!
 
-Check out the following resources to learn more about GraphQL and Strawberry.
+اطلع على الموارد التالية لمعرفة المزيد حول GraphQL و Strawberry.
 
 - [Schema Basics](./general/schema-basics.md)
 - [Resolvers](./types/resolvers.md)
 - [Deployment](./operations/deployment.md)
+
