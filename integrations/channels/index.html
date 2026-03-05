@@ -1,0 +1,6620 @@
+
+<!doctype html>
+<html lang="ar" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tareksamerr-cmd.github.io/strawberry-ar/integrations/channels/">
+      
+      
+        <link rel="prev" href="../chalice/">
+      
+      
+        <link rel="next" href="../creating-an-integration/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+    
+    
+      
+        <title>Channels - Strawberry GraphQL بالعربي</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="rtl" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#channels" class="md-skip">
+          انتقل إلى المحتوى
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="عنوان العارضة">
+    <a href="../.." title="Strawberry GraphQL بالعربي" class="md-header__button md-logo" aria-label="Strawberry GraphQL بالعربي" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Strawberry GraphQL بالعربي
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Channels
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="pink" data-md-color-accent="indigo"  aria-label="التبديل إلى الوضع الليلي"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="التبديل إلى الوضع الليلي" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="indigo"  aria-label="التبديل إلى الوضع الفاتح"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="التبديل إلى الوضع الفاتح" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="بحث" placeholder="بحث" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="إبحث">
+        
+        <button type="reset" class="md-search__icon md-icon" title="مسح كلي" aria-label="مسح كلي" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            بدء البحث
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="نوافذ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  البدء مع Strawberry
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../_test/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Test doc page
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../extensions/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Extensions
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../breaking-changes/0.146.0/" class="md-tabs__link">
+          
+  
+  
+  Breaking changes
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../cli/locate-definition/" class="md-tabs__link">
+          
+  
+  
+  Cli
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../codegen/query-codegen/" class="md-tabs__link">
+          
+  
+  
+  Codegen
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../concepts/async/" class="md-tabs__link">
+          
+  
+  
+  Concepts
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../editors/mypy/" class="md-tabs__link">
+          
+  
+  
+  Editors
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../errors/_template/" class="md-tabs__link">
+          
+  
+  
+  Errors
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../extensions/_template/" class="md-tabs__link">
+          
+  
+  
+  Extensions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../federation/custom_directives/" class="md-tabs__link">
+          
+  
+  
+  Federation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../general/breaking-changes/" class="md-tabs__link">
+          
+  
+  
+  General
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guides/accessing-parent-data/" class="md-tabs__link">
+          
+  
+  
+  Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Integrations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../operations/deployment/" class="md-tabs__link">
+          
+  
+  
+  Operations
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../types/defer-and-stream/" class="md-tabs__link">
+          
+  
+  
+  Types
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="تصفح" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Strawberry GraphQL بالعربي" class="md-nav__button md-logo" aria-label="Strawberry GraphQL بالعربي" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Strawberry GraphQL بالعربي
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    البدء مع Strawberry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Test doc page
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Breaking changes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Breaking changes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.146.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.146.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.159.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.159.0 Deprecations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.169.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.169.0 Breaking changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.180.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.180.0 Breaking changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.213.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.213.0 Deprecation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.217.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.217 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.233.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.233.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.236.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.236.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.240.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.240.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.243.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.243.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.249.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.249.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.251.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.251.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.268.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.268.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.278.1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.278.1 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.279.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.279.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.283.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.283.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.285.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.285.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../breaking-changes/0.288.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0.288.0 Breaking Changes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cli
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cli
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/locate-definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Locate definition
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codegen
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Codegen
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../codegen/query-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../codegen/schema-codegen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema codegen
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Async
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../concepts/typings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Type hints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editors
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Editors
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editors/mypy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mypy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editors/vscode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Visual studio code
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Errors
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/_template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Some Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/conflicting-arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conflicting Arguments Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/duplicated-type-name/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Duplicated Type Name Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/invalid-argument-type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Invalid Argument Type Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/invalid-superclass-interface/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Invalid Superclass Interface Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/invalid-type-for-union-merge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Invalid Type for Union Merge Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/invalid-union-type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Invalid Type for Union Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/missing-arguments-annotations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing arguments annotation Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/missing-field-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing field annotation Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/missing-return-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Missing return annotation Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/multiple-strawberry-fields/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Multiple Strawberry Fields Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/node-id-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node ID annotation error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/object-is-not-an-enum/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object is not an Enum Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/object-is-not-class/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object is not an Class Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/permission-fail-silently-requires-optional/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using silent permissions on optional fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/private-strawberry-field/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Strawberry Field Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/relay-wrong-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relay wrong annotation Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/relay-wrong-resolver-annotation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relay wrong resolver annotation Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/scalar-already-registered/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scalar already registered Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/unresolved-field-type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unresolved Field Type Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/unsupported-type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unsupported Type Error
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extensions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Extensions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/_template/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extension Name
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/add-validation-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add Validation Rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/apollo-tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apollo Tracing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/datadog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datadog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/disable-introspection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disable Introspection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/disable-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disable Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/input-mutation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input Mutation Extension
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/mask-errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mask Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/max-aliases-limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Max Aliases Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/max-tokens-limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Max Tokens Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/opentelemetry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Open Telemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/parser-cache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parser Cache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/pyinstrument/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PyInstrument
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/query-depth-limiter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query Depth Limiter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/sentry-tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sentry Tracing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../extensions/validation-cache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation Cache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Federation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Federation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../federation/custom_directives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exposing directives on the supergraph (Apollo Federation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../federation/entities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entities (Apollo Federation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../federation/entity-interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entity interfaces (Apollo Federation)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../federation/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apollo Federation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    General
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    General
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/breaking-changes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    قائمة التغييرات الجذرية والإلغاءات
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    الأخطاء
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    الأسئلة الشائعة
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/multipart-subscriptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    الاشتراكات متعددة الأجزاء
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/mutations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    الطفرات (Mutations)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/queries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    الاستعلامات (Queries)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/schema-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    أساسيات المخطط (Schema)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/subscriptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    الاشتراكات (Subscriptions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../general/upgrades/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ترقية Strawberry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/accessing-parent-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accessing parent's data in resolvers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/authentication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/convert-to-dictionary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Convert to Dictionary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/custom-extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/dataloaders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DataLoaders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dealing with errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/federation-v1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Federation V1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/federation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Federation 2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/field-extensions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Field extensions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/file-upload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/permissions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/query-batching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query Batching
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/relay/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Relay
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/schema-export/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema export
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Builtin server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_13_17" id="__nav_13_17_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pagination
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_13_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13_17">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pagination
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/pagination/connections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pagination - Implementing the Relay Connection Specification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/pagination/cursor-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pagination - Cursor based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/pagination/offset-based/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pagination - Offset based
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/pagination/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pagination - Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Integrations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aiohttp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIOHTTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asgi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ASGI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chalice/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chalice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Channels
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Channels
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="جدول المحتويات">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      جدول المحتويات
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Started
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-requisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-requisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tutorial
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorial">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel Layers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-chat-subscription" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The chat subscription
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chat-message-mutation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat message mutation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating the consumers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-our-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running our example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirming-graphql-subscriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirming GraphQL Subscriptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passing-connection-params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Passing connection params
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphqlhttpconsumer-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQLHTTPConsumer (HTTP)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GraphQLHTTPConsumer (HTTP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-the-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extending the consumer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extending the consumer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render_graphql_ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        render_graphql_ide
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphqlwsconsumer-websockets-subscriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQLWSConsumer (WebSockets / Subscriptions)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GraphQLWSConsumer (WebSockets / Subscriptions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-the-consumer_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extending the consumer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on_ws_connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        on_ws_connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-for-defining-a-custom-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example for defining a custom context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graphqlprotocoltyperouter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQLProtocolTypeRouter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channelsconsumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChannelsConsumer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ChannelsConsumer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-an-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding an integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../django/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Django
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FastAPI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../flask/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flask
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../litestar/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Litestar
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pydantic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pydantic support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sanic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sanic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../starlette/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Starlette
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tracing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Types
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/defer-and-stream/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Defer and Stream
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exceptions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/generics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/input-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/interfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interfaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/lazy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lazy Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/maybe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maybe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/object-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/operation-directives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operation directives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/private/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Fields
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/resolvers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Resolvers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/scalars/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scalars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/schema-configurations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Configurations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/schema-directives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Directives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/union/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Union types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../types/unset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UNSET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="جدول المحتويات">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      جدول المحتويات
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Started
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-requisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-requisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tutorial
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorial">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channel-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Channel Layers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-chat-subscription" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The chat subscription
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chat-message-mutation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat message mutation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-consumers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating the consumers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-our-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running our example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirming-graphql-subscriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirming GraphQL Subscriptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passing-connection-params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Passing connection params
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphqlhttpconsumer-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQLHTTPConsumer (HTTP)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GraphQLHTTPConsumer (HTTP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-the-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extending the consumer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extending the consumer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render_graphql_ide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        render_graphql_ide
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphqlwsconsumer-websockets-subscriptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQLWSConsumer (WebSockets / Subscriptions)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GraphQLWSConsumer (WebSockets / Subscriptions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#options_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-the-consumer_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extending the consumer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on_ws_connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        on_ws_connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-for-defining-a-custom-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example for defining a custom context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#graphqlprotocoltyperouter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQLProtocolTypeRouter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#channelsconsumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ChannelsConsumer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ChannelsConsumer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="channels">Channels</h1>
+<p>Strawberry provides support for <a href="https://channels.readthedocs.io/">Channels</a>
+with
+<a href="https://channels.readthedocs.io/en/stable/topics/consumers.html">Consumers</a> to
+provide GraphQL support over WebSockets and HTTP.</p>
+<h2 id="introduction">Introduction</h2>
+<p>While Channels does require Django to be installed as a dependency, you can
+actually run this integration without using Django's request handler. However,
+the most common use case will be to run a normal Django project with GraphQL
+subscriptions support, typically taking advantage of the Channel Layers
+functionality which is exposed through the Strawberry integration.</p>
+<hr />
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="pre-requisites">Pre-requisites</h3>
+<p>Make sure you have read the following Channels documentation:</p>
+<ul>
+<li><a href="https://channels.readthedocs.io/en/stable/introduction.html#">Introduction</a></li>
+<li><a href="https://channels.readthedocs.io/en/stable/tutorial/index.html">Tutorial</a></li>
+<li><a href="https://channels.readthedocs.io/en/stable/topics/consumers.html">Consumers</a></li>
+<li>And our <a href="../general/subscriptions">Subscriptions</a> documentation.</li>
+</ul>
+<p>If you have read the Channels documentation, You should know by now that:</p>
+<ol>
+<li>ASGI application is a callable that can handle multiple send / receive
+   operations without the need of a new application instance.</li>
+<li>Channels is all about making ASGI applications instances (whether in another
+   processes or in another machine) talk to each other seamlessly.</li>
+<li>A <code>scope</code> is a single connection represented by a dict, whether it would be a
+   websocket or an HTTP request or another protocol.</li>
+<li>A <code>Consumer</code> is an ASGI application abstraction that helps to handle a single
+   scope.</li>
+</ol>
+<h3 id="installation">Installation</h3>
+<p>Before using Strawberry's Channels support, make sure you install all the
+required dependencies by running:</p>
+<pre><code class="language-shell">pip install 'strawberry-graphql[channels]'
+</code></pre>
+<hr />
+<h2 id="tutorial">Tutorial</h2>
+<p><em>The following example will pick up where the Channels tutorials left off.</em></p>
+<p>By the end of this tutorial, You will have a graphql chat subscription that will
+be able to talk with the channels chat consumer from the tutorial.</p>
+<h3 id="types-setup">Types setup</h3>
+<p>First, let's create some Strawberry-types for the chat.</p>
+<pre><code class="language-python"># mysite/gqlchat/subscription.py
+
+import strawberry
+
+
+@strawberry.input
+class ChatRoom:
+    room_name: str
+
+
+@strawberry.type
+class ChatRoomMessage:
+    room_name: str
+    current_user: str
+    message: str
+</code></pre>
+<h3 id="channel-layers">Channel Layers</h3>
+<p>The Context for Channels integration includes the consumer, which has an
+instance of the channel layer and the consumer's channel name. This tutorial is
+an example of how this can be used in the schema to provide subscriptions to
+events generated by background tasks or the web server. Even if these are
+executed in other threads, processes, or even other servers, if you are using a
+Layer backend like Redis or RabbitMQ you should receive the events.</p>
+<p>To set this up, you'll need to make sure Channel Layers is configured as per the
+<a href="https://channels.readthedocs.io/en/stable/topics/channel_layers.html">documentation</a>.</p>
+<p>Then you'll want to add a subscription that accesses the channel layer and joins
+one or more broadcast groups.</p>
+<p>Since listening for events and passing them along to the client is a common use
+case, the base consumer provides a high level API for that using a generator
+pattern, as we will see below.</p>
+<h3 id="the-chat-subscription">The chat subscription</h3>
+<p>Now we will create the chat <a href="../../general/subscriptions/">subscription</a>.</p>
+<pre><code class="language-python"># mysite/gqlchat/subscription.py
+
+import os
+import threading
+
+from typing import AsyncGenerator, List
+
+
+@strawberry.type
+class Subscription:
+    @strawberry.subscription
+    async def join_chat_rooms(
+        self,
+        info: strawberry.Info,
+        rooms: List[ChatRoom],
+        user: str,
+    ) -&gt; AsyncGenerator[ChatRoomMessage, None]:
+        &quot;&quot;&quot;Join and subscribe to message sent to the given rooms.&quot;&quot;&quot;
+        ws = info.context[&quot;ws&quot;]
+        channel_layer = ws.channel_layer
+
+        room_ids = [f&quot;chat_{room.room_name}&quot; for room in rooms]
+
+        for room in room_ids:
+            # Join room group
+            await channel_layer.group_add(room, ws.channel_name)
+
+        for room in room_ids:
+            await channel_layer.group_send(
+                room,
+                {
+                    &quot;type&quot;: &quot;chat.message&quot;,
+                    &quot;room_id&quot;: room,
+                    &quot;message&quot;: f&quot;process: {os.getpid()} thread: {threading.current_thread().name}&quot;
+                    f&quot; -&gt; Hello my name is {user}!&quot;,
+                },
+            )
+
+        async with ws.listen_to_channel(&quot;chat.message&quot;, groups=room_ids) as cm:
+            async for message in cm:
+                if message[&quot;room_id&quot;] in room_ids:
+                    yield ChatRoomMessage(
+                        room_name=message[&quot;room_id&quot;],
+                        message=message[&quot;message&quot;],
+                        current_user=user,
+                    )
+</code></pre>
+<p>Explanation: <code>Info.context["ws"]</code> or <code>Info.context["request"]</code> is a pointer to
+the <a href="#channelsconsumer"><code>ChannelsConsumer</code></a> instance. Here we have first sent a
+message to all the channel_layer groups (specified in the subscription argument
+<code>rooms</code>) that we have joined the chat.</p>
+<p><Note></p>
+<p>The <code>ChannelsConsumer</code> instance is shared between all subscriptions created in a
+single websocket connection. The <code>ws.listen_to_channel</code> context manager will
+return a function to yield all messages sent using the given message <code>type</code>
+(<code>chat.message</code> in the above example) but does not ensure that the message was
+sent to the same group or groups that it was called with - if another
+subscription using the same <code>ChannelsConsumer</code> also uses <code>ws.listen_to_channel</code>
+with some other group names, those will be returned as well.</p>
+<p>In the example we ensure <code>message["room_id"] in room_ids</code> before passing
+messages on to the subscription client to ensure subscriptions only receive
+messages for the chat rooms requested in that subscription.</p>
+<p></Note></p>
+<p><Note></p>
+<p>We do not need to call <code>await channel_layer.group_add(room, ws.channel_name)</code> if
+we don't want to send an initial message while instantiating the subscription.
+It is handled by <code>ws.listen_to_channel</code>.</p>
+<p></Note></p>
+<h3 id="chat-message-mutation">Chat message mutation</h3>
+<p>If you noticed, the subscription client can't send a message willingly. You will
+have to create a mutation for sending messages via the <code>channel_layer</code></p>
+<pre><code class="language-python"># mysite/gqlchat/subscription.py
+
+from channels.layers import get_channel_layer
+
+
+@strawberry.type
+class Mutation:
+    @strawberry.mutation
+    async def send_chat_message(
+        self,
+        info: strawberry.Info,
+        room: ChatRoom,
+        message: str,
+    ) -&gt; None:
+        channel_layer = get_channel_layer()
+
+        await channel_layer.group_send(
+            f&quot;chat_{room.room_name}&quot;,
+            {
+                &quot;type&quot;: &quot;chat.message&quot;,
+                &quot;room_id&quot;: f&quot;chat_{room.room_name}&quot;,
+                &quot;message&quot;: message,
+            },
+        )
+</code></pre>
+<h3 id="creating-the-consumers">Creating the consumers</h3>
+<p>All we did so far is useless without creating an asgi consumer for our schema.
+The easiest way to do that is to use the
+<a href="#graphqlprotocoltyperouter"><code>GraphQLProtocolTypeRouter</code></a> which will wrap your
+Django application, and route <strong>HTTP and websockets</strong> for <code>"/graphql"</code> to
+Strawberry, while sending all other requests to Django. You'll need to modify
+the <code>myproject.asgi.py</code> file from the Channels instructions to look something
+like this:</p>
+<pre><code class="language-python">import os
+
+from django.core.asgi import get_asgi_application
+from strawberry.channels import GraphQLProtocolTypeRouter
+
+os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;mysite.settings&quot;)
+django_asgi_app = get_asgi_application()
+
+# Import your Strawberry schema after creating the django ASGI application
+# This ensures django.setup() has been called before any ORM models are imported
+# for the schema.
+from mysite.graphql import schema
+
+application = GraphQLProtocolTypeRouter(
+    schema,
+    django_application=django_asgi_app,
+)
+</code></pre>
+<p>This approach is not very flexible, taking away some useful capabilities of
+Channels. For more complex deployments, i.e you want to integrate several ASGI
+applications on different URLs and protocols, like what is described in the
+<a href="https://channels.readthedocs.io/en/stable/topics/protocols.html">Channels documentation</a>.
+You will probably craft your own
+<a href="https://channels.readthedocs.io/en/stable/topics/routing.html#protocoltyperouter"><code>ProtocolTypeRouter</code></a>.</p>
+<p>An example of this (continuing from channels tutorial) would be:</p>
+<pre><code class="language-python">import os
+
+from channels.auth import AuthMiddlewareStack
+from channels.routing import ProtocolTypeRouter, URLRouter
+from django.core.asgi import get_asgi_application
+from django.urls import re_path
+from strawberry.channels import GraphQLHTTPConsumer, GraphQLWSConsumer
+
+os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;berry.settings&quot;)
+django_asgi_app = get_asgi_application()
+
+# Import your Strawberry schema after creating the django ASGI application
+# This ensures django.setup() has been called before any ORM models are imported
+# for the schema.
+
+from chat import routing
+from mysite.graphql import schema
+
+gql_http_consumer = AuthMiddlewareStack(GraphQLHTTPConsumer.as_asgi(schema=schema))
+gql_ws_consumer = GraphQLWSConsumer.as_asgi(schema=schema)
+
+websocket_urlpatterns = routing.websocket_urlpatterns + [
+    re_path(r&quot;graphql&quot;, gql_ws_consumer),
+]
+
+application = ProtocolTypeRouter(
+    {
+        &quot;http&quot;: URLRouter(
+            [
+                re_path(&quot;^graphql&quot;, gql_http_consumer),
+                re_path(
+                    &quot;^&quot;, django_asgi_app
+                ),  # This might be another endpoint in your app
+            ]
+        ),
+        &quot;websocket&quot;: AuthMiddlewareStack(URLRouter(websocket_urlpatterns)),
+    }
+)
+</code></pre>
+<p>This example demonstrates some ways that Channels can be set up to handle
+routing. A very common scenario will be that you want user and session
+information inside the GraphQL context, which the AuthMiddlewareStack wrapper
+above will provide. It might be apparent by now, there's no reason at all why
+you couldn't run a Channels server without any Django ASGI application at all.
+However, take care to ensure you run <code>django.setup()</code> instead of
+<code>get_asgi_application()</code>, if you need any Django ORM or other Django features in
+Strawberry.</p>
+<h3 id="running-our-example">Running our example</h3>
+<p>First run your asgi application <em>(The ProtocolTypeRouter)</em> using your asgi
+server. If you are coming from the channels tutorial, there is no difference.
+Then open three different tabs on your browser and go to the following URLs:</p>
+<ol>
+<li><code>localhost:8000/graphql</code></li>
+<li><code>localhost:8000/graphql</code></li>
+<li><code>localhost:8000/chat</code></li>
+</ol>
+<p>If you want, you can run 3 different instances of your application with
+different ports it should work the same!</p>
+<p>On tab #1 start the subscription:</p>
+<pre><code class="language-graphql">subscription SubscribeToChatRooms {
+  joinChatRooms(
+    rooms: [{ roomName: &quot;room1&quot; }, { roomName: &quot;room2&quot; }]
+    user: &quot;foo&quot;
+  ) {
+    roomName
+    message
+    currentUser
+  }
+}
+</code></pre>
+<p>On tab #2 we will run <code>sendChatMessage</code> mutation:</p>
+<pre><code class="language-graphql">mutation echo {
+  sendChatMessage(message: &quot;hello room 1&quot;, room: { roomName: &quot;room1&quot; })
+}
+</code></pre>
+<p>On tab #3 we will join the room you subscribed to ("room1") and start chatting.
+Before we do that there is a slight change we need to make in the <code>ChatConsumer</code>
+you created with channels in order to make it compatible with our
+<code>ChatRoomMessage</code> type.</p>
+<pre><code class="language-python"># Send message to room group
+await self.channel_layer.group_send(
+    self.room_group_name,
+    {
+        &quot;type&quot;: &quot;chat.message&quot;,
+        &quot;room_id&quot;: self.room_group_name,  # &lt;&lt;&lt; here is the change
+        &quot;message&quot;: f&quot;process is {os.getpid()}, Thread is {threading.current_thread().name}&quot;
+        f&quot; -&gt; {message}&quot;,
+    },
+)
+</code></pre>
+<p>Look here for some more complete examples:</p>
+<ol>
+<li>The
+   <a href="https://github.com/strawberry-graphql/examples">Strawberry Examples repo</a>
+   contains a basic example app demonstrating subscriptions with Channels.</li>
+</ol>
+<hr />
+<h3 id="confirming-graphql-subscriptions">Confirming GraphQL Subscriptions</h3>
+<p>By default no confirmation message is sent to the GraphQL client once the
+subscription has started. However, this is useful to be able to synchronize
+actions and detect communication errors. The code below shows how the above
+example can be adapted to send a null from the server to the client to confirm
+that the subscription has successfully started. This includes confirming that
+the Channels layer subscription has started.</p>
+<pre><code class="language-python"># mysite/gqlchat/subscription.py
+
+
+@strawberry.type
+class Subscription:
+    @strawberry.subscription
+    async def join_chat_rooms(
+        self,
+        info: strawberry.Info,
+        rooms: List[ChatRoom],
+        user: str,
+    ) -&gt; AsyncGenerator[ChatRoomMessage | None, None]:
+        ...
+        async with ws.listen_to_channel(&quot;chat.message&quot;, groups=room_ids) as cm:
+            yield None
+            async for message in cm:
+                if message[&quot;room_id&quot;] in room_ids:
+                    yield ChatRoomMessage(
+                        room_name=message[&quot;room_id&quot;],
+                        message=message[&quot;message&quot;],
+                        current_user=user,
+                    )
+</code></pre>
+<p>Note the change in return signature for <code>join_chat_rooms</code> and the <code>yield None</code>
+after entering the <code>listen_to_channel</code> context manger.</p>
+<h2 id="testing">Testing</h2>
+<p>We provide a minimal application communicator (<code>GraphQLWebsocketCommunicator</code>)
+for subscribing. Here is an example based on the tutorial above: <em>Make sure you
+have pytest-async installed</em></p>
+<pre><code class="language-python">from channels.testing import WebsocketCommunicator
+import pytest
+from myapp.asgi import application  # your channels asgi
+from strawberry.channels.testing import GraphQLWebsocketCommunicator
+
+
+@pytest.fixture
+async def gql_communicator() -&gt; GraphQLWebsocketCommunicator:
+    client = GraphQLWebsocketCommunicator(application=application, path=&quot;/graphql&quot;)
+    await client.gql_init()
+    yield client
+    await client.disconnect()
+
+
+chat_subscription_query = &quot;&quot;&quot;
+                subscription fooChat {
+                joinChatRooms(
+                    rooms: [{ roomName: &quot;room1&quot; }, { roomName: &quot;room2&quot; }]
+                    user: &quot;foo&quot;){
+                        roomName
+                        message
+                        currentUser
+                    }
+                }
+&quot;&quot;&quot;
+
+
+@pytest.mark.asyncio
+async def test_joinChatRooms_sends_welcome_message(gql_communicator):
+    async for result in gql_communicator.subscribe(query=chat_subscription_query):
+        data = result.data
+        assert data[&quot;currentUser&quot;] == &quot;foo&quot;
+        assert &quot;room1&quot; in data[&quot;roomName&quot;]
+        assert &quot;hello&quot; in data[&quot;message&quot;]
+</code></pre>
+<p>In order to test a real server connection we can use python
+<a href="https://github.com/graphql-python/gql">gql client</a> and channels
+<a href="https://channels.readthedocs.io/en/latest/topics/testing.html#channelsliveservertestcase"><code>ChannelsLiveServerTestCase</code></a>.</p>
+<p><Note></p>
+<p>This example is based on the extended <code>ChannelsLiveServerTestCase</code> class from
+channels tutorial part 4. <strong>You cannot run this test with a pytest session.</strong></p>
+<p></Note></p>
+<p>Add this test in your <code>ChannelsLiveServerTestCase</code> extended class:</p>
+<pre><code class="language-python">from gql import Client, gql
+from gql.transport.websockets import WebsocketsTransport
+
+
+def test_send_message_via_channels_chat_joinChatRooms_recieves(self):
+    transport = WebsocketsTransport(url=self.live_server_ws_url + &quot;/graphql&quot;)
+
+    client = Client(
+        transport=transport,
+        fetch_schema_from_transport=False,
+    )
+
+    query = gql(chat_subscription_query)
+    for index, result in enumerate(client.subscribe(query)):
+        if index == 0 or 1:
+            print(result)
+        # because we subscribed to 2 rooms we received two welcome messages.
+        elif index == 2:
+            print(result)
+            assert &quot;hello from web browser&quot; in result[&quot;joinChatRooms&quot;][&quot;message&quot;]
+            break
+
+        try:
+            self._enter_chat_room(&quot;room1&quot;)
+            self._post_message(&quot;hello from web browser&quot;)
+        finally:
+            self._close_all_new_windows()
+</code></pre>
+<hr />
+<p>The HTTP and WebSockets protocol are handled by different base classes. HTTP
+uses <code>GraphQLHTTPConsumer</code> and WebSockets uses <code>GraphQLWSConsumer</code>. Both of them
+can be extended:</p>
+<h3 id="passing-connection-params">Passing connection params</h3>
+<p>Connection parameters can be passed using the <code>connection_params</code> parameter of
+the <code>GraphQLWebsocketCommunicator</code> class. This is particularily useful to test
+websocket authentication.</p>
+<pre><code class="language-python">GraphQLWebsocketCommunicator(
+    application=application,
+    path=&quot;/graphql&quot;,
+    connection_params={&quot;token&quot;: &quot;strawberry&quot;},
+)
+</code></pre>
+<h2 id="graphqlhttpconsumer-http">GraphQLHTTPConsumer (HTTP)</h2>
+<h3 id="options">Options</h3>
+<p><code>GraphQLHTTPConsumer</code> supports the same options as all other integrations:</p>
+<ul>
+<li><code>schema</code>: mandatory, the schema created by <code>strawberry.Schema</code>.</li>
+<li><code>graphql_ide</code>: optional, defaults to <code>"graphiql"</code>, allows to choose the
+  GraphQL IDE interface (one of <code>graphiql</code>, <code>apollo-sandbox</code> or <code>pathfinder</code>) or
+  to disable it by passing <code>None</code>.</li>
+<li><code>allow_queries_via_get</code>: optional, defaults to <code>True</code>, whether to enable
+  queries via <code>GET</code> requests</li>
+<li><code>multipart_uploads_enabled</code>: optional, defaults to <code>False</code>, controls whether
+  to enable multipart uploads. Please make sure to consider the
+  <a href="https://github.com/jaydenseric/graphql-multipart-request-spec/blob/master/readme.md#security">security implications mentioned in the GraphQL Multipart Request Specification</a>
+  when enabling this feature.</li>
+</ul>
+<h3 id="extending-the-consumer">Extending the consumer</h3>
+<p>The base <code>GraphQLHTTPConsumer</code> class can be extended by overriding any of the
+following methods:</p>
+<ul>
+<li><code>async def get_context(self, request: ChannelsRequest, response: TemporalResponse) -&gt; Context</code></li>
+<li><code>async def get_root_value(self, request: ChannelsRequest) -&gt; Optional[RootValue]</code></li>
+<li><code>async def process_result(self, request: Request, result: ExecutionResult) -&gt; GraphQLHTTPResponse</code></li>
+<li><code>def decode_json(self, data: Union[str, bytes]) -&gt; object</code></li>
+<li><code>def encode_json(self, data: object) -&gt; str | bytes</code></li>
+<li><code>async def render_graphql_ide(self, request: ChannelsRequest) -&gt; ChannelsResponse</code></li>
+</ul>
+<h4 id="context">Context</h4>
+<p>The default context returned by <code>get_context()</code> is a <code>dict</code> that includes the
+following keys by default:</p>
+<ul>
+<li><code>request</code>: A <code>ChannelsRequest</code> object with the following fields and methods:</li>
+<li><code>consumer</code>: The <code>GraphQLHTTPConsumer</code> instance for this connection</li>
+<li><code>body</code>: The request body</li>
+<li><code>headers</code>: A dict containing the headers of the request</li>
+<li><code>method</code>: The HTTP method of the request</li>
+<li><code>content_type</code>: The content type of the request</li>
+<li><code>response</code> A <code>TemporalResponse</code> object, that can be used to influence the HTTP
+  response:</li>
+<li><code>status_code</code>: The status code of the response, if there are no execution
+    errors (defaults to <code>200</code>)</li>
+<li><code>headers</code>: Any additional headers that should be send with the response</li>
+</ul>
+<h4 id="render_graphql_ide">render_graphql_ide</h4>
+<p>In case you need more control over the rendering of the GraphQL IDE than the
+<code>graphql_ide</code> option provides, you can override the <code>render_graphql_ide</code> method.</p>
+<pre><code class="language-python">from strawberry.channels import GraphQLHTTPConsumer, ChannelsRequest, ChannelsResponse
+
+
+class MyGraphQLHTTPConsumer(GraphQLHTTPConsumer):
+    async def render_graphql_ide(self, request: ChannelsRequest) -&gt; ChannelsResponse:
+        custom_html = &quot;&quot;&quot;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Custom GraphQL IDE&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;&quot;&quot;&quot;
+
+        return ChannelsResponse(content=custom_html, content_type=&quot;text/html&quot;)
+</code></pre>
+<h2 id="graphqlwsconsumer-websockets-subscriptions">GraphQLWSConsumer (WebSockets / Subscriptions)</h2>
+<h3 id="options_1">Options</h3>
+<ul>
+<li><code>schema</code>: mandatory, the schema created by <code>strawberry.Schema</code>.</li>
+<li><code>debug</code>: optional, defaults to <code>False</code>, whether to enable debug mode.</li>
+<li><code>keep_alive</code>: optional, defaults to <code>False</code>, whether to enable keep alive mode
+  for websockets.</li>
+<li><code>keep_alive_interval</code>: optional, defaults to <code>1</code>, the interval in seconds for
+  keep alive messages.</li>
+</ul>
+<h3 id="extending-the-consumer_1">Extending the consumer</h3>
+<p>The base <code>GraphQLWSConsumer</code> class can be extended by overriding any of the
+following methods:</p>
+<ul>
+<li><code>async def get_context(self, request: GraphQLWSConsumer, response: GraphQLWSConsumer) -&gt; Context</code></li>
+<li><code>async def get_root_value(self, request: GraphQLWSConsumer) -&gt; Optional[RootValue]</code></li>
+<li><code>def decode_json(self, data: Union[str, bytes]) -&gt; object</code></li>
+<li><code>def encode_json(self, data: object) -&gt; str | bytes</code></li>
+<li><code>async def on_ws_connect(self, context: Context) -&gt; Union[UnsetType, None, Dict[str, object]]</code></li>
+</ul>
+<h3 id="on_ws_connect">on_ws_connect</h3>
+<p>By overriding <code>on_ws_connect</code> you can customize the behavior when a <code>graphql-ws</code>
+or <code>graphql-transport-ws</code> connection is established. This is particularly useful
+for authentication and authorization. By default, all connections are accepted.</p>
+<p>To manually accept a connection, return <code>strawberry.UNSET</code> or a connection
+acknowledgment payload. The acknowledgment payload will be sent to the client.</p>
+<p>Note that the legacy protocol does not support <code>None</code>/<code>null</code> acknowledgment
+payloads, while the new protocol does. Our implementation will treat
+<code>None</code>/<code>null</code> payloads the same as <code>strawberry.UNSET</code> in the context of the
+legacy protocol.</p>
+<p>To reject a connection, raise a <code>ConnectionRejectionError</code>. You can optionally
+provide a custom error payload that will be sent to the client when the legacy
+GraphQL over WebSocket protocol is used.</p>
+<pre><code class="language-python">from typing import Dict
+from strawberry.exceptions import ConnectionRejectionError
+from strawberry.channels import GraphQLWSConsumer
+
+
+class MyGraphQLWSConsumer(GraphQLWSConsumer):
+    async def on_ws_connect(self, context: Dict[str, object]):
+        connection_params = context[&quot;connection_params&quot;]
+
+        if not isinstance(connection_params, dict):
+            # Reject without a custom graphql-ws error payload
+            raise ConnectionRejectionError()
+
+        if connection_params.get(&quot;password&quot;) != &quot;secret&quot;:
+            # Reject with a custom graphql-ws error payload
+            raise ConnectionRejectionError({&quot;reason&quot;: &quot;Invalid password&quot;})
+
+        if username := connection_params.get(&quot;username&quot;):
+            # Accept with a custom acknowledgment payload
+            return {&quot;message&quot;: f&quot;Hello, {username}!&quot;}
+
+        # Accept without a acknowledgment payload
+        return await super().on_ws_connect(context)
+</code></pre>
+<h3 id="context_1">Context</h3>
+<p>The default context returned by <code>get_context()</code> is a <code>dict</code> and it includes the
+following keys by default:</p>
+<ul>
+<li><code>request</code>: The <code>GraphQLWSConsumer</code> instance of the current connection. It can
+  be used to access the connection scope, e.g. <code>info.context["ws"].headers</code>
+  allows access to any headers.</li>
+<li><code>ws</code>: The same as <code>request</code></li>
+<li><code>connection_params</code>: Any <code>connection_params</code>, see
+  <a href="/docs/general/subscriptions#authenticating-subscriptions">Authenticating Subscriptions</a></li>
+</ul>
+<h2 id="example-for-defining-a-custom-context">Example for defining a custom context</h2>
+<p>Here is an example for extending the base classes to offer a different context
+object in your resolvers. For the HTTP integration, you can also have properties
+to access the current user and the session. Both properties depend on the
+<code>AuthMiddlewareStack</code> wrapper.</p>
+<pre><code class="language-python">from django.contrib.auth.models import AnonymousUser
+
+from strawberry.channels import ChannelsConsumer, ChannelsRequest
+from strawberry.channels import GraphQLHTTPConsumer as BaseGraphQLHTTPConsumer
+from strawberry.channels import GraphQLWSConsumer as BaseGraphQLWSConsumer
+from strawberry.http.temporal_response import TemporalResponse
+
+
+@dataclass
+class ChannelsContext:
+    request: ChannelsRequest
+    response: TemporalResponse
+
+    @property
+    def user(self):
+        # Depends on Channels' AuthMiddlewareStack
+        if &quot;user&quot; in self.request.consumer.scope:
+            return self.request.consumer.scope[&quot;user&quot;]
+
+        return AnonymousUser()
+
+    @property
+    def session(self):
+        # Depends on Channels' SessionMiddleware / AuthMiddlewareStack
+        if &quot;session&quot; in self.request.consumer.scope:
+            return self.request.consumer.scope[&quot;session&quot;]
+
+        return None
+
+
+@dataclass
+class ChannelsWSContext:
+    request: ChannelsConsumer
+    connection_params: Optional[Dict[str, Any]] = None
+
+    @property
+    def ws(self) -&gt; ChannelsConsumer:
+        return self.request
+
+
+class GraphQLHTTPConsumer(BaseGraphQLHTTPConsumer):
+    @override
+    async def get_context(
+        self, request: ChannelsRequest, response: TemporalResponse
+    ) -&gt; ChannelsContext:
+        return ChannelsContext(
+            request=request,
+            response=response,
+        )
+
+
+class GraphQLWSConsumer(BaseGraphQLWSConsumer):
+    @override
+    async def get_context(
+        self, request: ChannelsConsumer, connection_params: Any
+    ) -&gt; ChannelsWSContext:
+        return ChannelsWSContext(
+            request=request,
+            connection_params=connection_params,
+        )
+</code></pre>
+<p>You can import and use the extended <code>GraphQLHTTPConsumer</code> and
+<code>GraphQLWSConsumer</code> classes in your <code>myproject.asgi.py</code> file as shown before.</p>
+<hr />
+<h2 id="api">API</h2>
+<h3 id="graphqlprotocoltyperouter">GraphQLProtocolTypeRouter</h3>
+<p>A helper for creating a common strawberry-django
+<a href="https://channels.readthedocs.io/en/stable/topics/routing.html#protocoltyperouter"><code>ProtocolTypeRouter</code></a>
+Implementation.</p>
+<p>Example usage:</p>
+<pre><code class="language-python">from strawberry.channels import GraphQLProtocolTypeRouter
+from django.core.asgi import get_asgi_application
+
+django_asgi = get_asgi_application()
+
+from myapi import schema
+
+application = GraphQLProtocolTypeRouter(
+    schema,
+    django_application=django_asgi,
+)
+</code></pre>
+<p>This will route all requests to /graphql on either HTTP or websockets to us, and
+everything else to the Django application.</p>
+<h3 id="channelsconsumer">ChannelsConsumer</h3>
+<p>Strawberries extended
+<a href="https://channels.readthedocs.io/en/stable/topics/consumers.html#consumers"><code>AsyncConsumer</code></a>.</p>
+<p>Every graphql session will have an instance of this class inside
+<code>info.context["ws"]</code> (WebSockets) or <code>info.context["request"].consumer</code> (HTTP).</p>
+<h4 id="properties">properties</h4>
+<pre><code class="language-python">@contextlib.asynccontextmanager
+async def listen_to_channel(
+    self,
+    type: str,
+    *,
+    timeout: float | None = None,
+    groups: Sequence[str] | None = None
+) -&gt; AsyncGenerator[Any, None]: ...
+</code></pre>
+<ul>
+<li><code>type</code> - The type of the message to wait for, equivalent to <code>scope['type']</code></li>
+<li><code>timeout</code> - An optional timeout to wait for each subsequent message.</li>
+<li><code>groups</code> - list of groups to yield messages from threw channel layer.</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u062a\u0645 \u0627\u0644\u0646\u0633\u062e \u0627\u0644\u0649 \u0627\u0644\u062d\u0627\u0641\u0638\u0629", "clipboard.copy": "\u0646\u0633\u062e \u0625\u0644\u0649 \u0627\u0644\u062d\u0627\u0641\u0638\u0629", "search.result.more.one": "\u0623\u0643\u062b\u0631 \u0645\u0646 1 \u0641\u064a \u0647\u0630\u0647 \u0627\u0644\u0635\u0641\u062d\u0629", "search.result.more.other": "\u0623\u0643\u062b\u0631 \u0645\u0646 # \u0641\u064a \u0647\u0630\u0647 \u0627\u0644\u0635\u0641\u062d\u0629", "search.result.none": "\u0644\u0627 \u062a\u0648\u062c\u062f \u0646\u062a\u0627\u0626\u062c", "search.result.one": "\u0646\u062a\u0627\u0626\u062c \u0627\u0644\u0628\u062d\u062b \u0645\u0633\u062a\u0646\u062f \u0648\u0627\u062d\u062f", "search.result.other": "\u0646\u062a\u0627\u0626\u062c \u0627\u0644\u0628\u062d\u062b # \u0645\u0633\u062a\u0646\u062f\u0627\u062a", "search.result.placeholder": "\u0627\u0643\u062a\u0628 \u0644\u0628\u062f\u0621 \u0627\u0644\u0628\u062d\u062b", "search.result.term.missing": "\u0645\u0641\u0642\u0648\u062f", "select.version": "\u0625\u062e\u062a\u0631 \u0627\u0644\u0625\u0635\u062f\u0627\u0631"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
