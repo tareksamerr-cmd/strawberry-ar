@@ -6,17 +6,22 @@ theme:
   language: ar
   direction: rtl
   palette:
-    # الألوان القريبة من هوية Strawberry
+    # إعدادات الوضع الفاتح (Light Mode)
     - scheme: default
       primary: pink
       accent: indigo
-    - scheme: slate # للوضع الليلي
+      toggle:
+        icon: material/brightness-7
+        name: التبديل إلى الوضع الليلي
+    # إعدادات الوضع الليلي (Dark Mode)
+    - scheme: slate
       primary: pink
       accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: التبديل إلى الوضع الفاتح
   features:
-    - navigation.tabs # لإظهار القائمة العلوية مثل الموقع الرسمي
-    - navigation.sections
-    - search.highlight
-    - content.code.copy # لسهولة نسخ الأكواد
+    - navigation.tabs
+    - content.code.copy
 
 docs_dir: docs/ # المسار الذي يحتوي على ملفات الـ Markdown (.md)
