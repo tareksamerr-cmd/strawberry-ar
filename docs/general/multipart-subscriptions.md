@@ -1,27 +1,25 @@
 ---
-title: Multipart subscriptions
+title: الاشتراكات متعددة الأجزاء
 ---
 
-# Multipart subscriptions
+# الاشتراكات متعددة الأجزاء
 
-Strawberry supports subscription over multipart responses. This is an
-[alternative protocol](https://www.apollographql.com/docs/router/executing-operations/subscription-multipart-protocol/)
-created by [Apollo](https://www.apollographql.com/) to support subscriptions
-over HTTP, and it is supported by default by Apollo Client.
+تدعم Strawberry الاشتراكات (subscriptions) عبر استجابات متعددة الأجزاء (multipart responses). هذا
+[بروتوكول بديل](https://www.apollographql.com/docs/router/executing-operations/subscription-multipart-protocol/)
+تم إنشاؤه بواسطة [Apollo](https://www.apollographql.com/) لدعم الاشتراكات
+عبر HTTP، وهو مدعوم افتراضيًا بواسطة Apollo Client..
 
-# Support
+# يدعم
 
-We support multipart subscriptions out of the box in the following HTTP
-libraries:
+ندعم الاشتراكات متعددة الأجزاء بشكل افتراضي في مكتبات HTTP التالية:
 
-- Django (only in the Async view)
+- Django (فقط في العرض غير المتزامن)
 - ASGI
 - Litestar
 - FastAPI
 - AioHTTP
 - Quart
 
-# Usage
+# الاستخدام
 
-Multipart subscriptions are automatically enabled when using Subscription, so no
-additional configuration is required.
+يتم تفعيل الاشتراكات متعددة الأجزاء تلقائيًا عند استخدام الاشتراك، لذلك لا يلزم أي تكوين إضافي.
