@@ -1,0 +1,10 @@
+site_name: Strawberry GraphQL Arabic
+site_url: https://tareksamerr-cmd.github.io/strawberry-ar/
+theme:
+  name: material # القالب الذي تستخدمه Strawberry عادة
+
+nav:
+  - Home: index.md
+  # يمكنك إضافة بقية الصفحات هنا لاحقاً
+
+docs_dir: docs/ # أو المسار الذي توجد فيه ملفاتك العربية
