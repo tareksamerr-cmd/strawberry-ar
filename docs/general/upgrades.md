@@ -1,26 +1,24 @@
 ---
-title: Upgrading Strawberry
+title: ترقية Strawberry
 ---
 
-# Upgrading Strawberry
+# ترقية Strawberry
 
 <!--alex ignore-->
 
-We try to keep Strawberry as backwards compatible as possible, but sometimes we
-need to make updates to the public API. While we try to deprecate APIs before
-removing them, we also want to make it as easy as possible to upgrade to the
-latest version of Strawberry.
+نحن نسعى جاهدين للحفاظ على توافق Strawberry مع الإصدارات السابقة قدر الإمكان، ولكن في بعض الأحيان
+نحتاج إلى إجراء تحديثات على واجهة برمجة التطبيقات العامة (public API). وبينما نحاول إهمال بعض واجهات البرمجة (APIs) قبل
+إزالتها، فإننا نرغب أيضًا في تسهيل عملية الترقية إلى أحدث إصدار من Strawberry قدر الإمكان.
 
-For this reason, we provide a CLI command to run Codemods that can automatically
-upgrade your codebase to use the updated APIs.
+لهذا السبب، نوفر أمرًا لواجهة الأوامر (CLI) لتشغيل أدوات التعديل البرمجي (Codemods) التي يمكنها ترقية
+قاعدة التعليمات البرمجية الخاصة بك تلقائيًا لاستخدام واجهات البرمجة المحدثة.
 
-Keep an eye on our release notes and the
-[breaking changes](../breaking-changes.md) page to see if a new Codemod is
-available, or if manual changes are required.
+تابع ملاحظات الإصدارات الخاصة بنا وصفحة
+[التغييرات الجذرية (breaking changes)](../breaking-changes.md) لمعرفة ما إذا كان هناك أداة Codemod جديدة
+متاحة، أو إذا كانت هناك تغييرات يدوية مطلوبة.
 
-Here's an example of how to upgrade your codebase by running a Codemod using the
-Strawberry CLI's `upgrade` command:
+فيما يلي مثال لكيفية ترقية قاعدة التعليمات البرمجية الخاصة بك عن طريق تشغيل Codemod باستخدام
+أمر `upgrade` الخاص بواجهة أوامر Strawberry:
 
 ```shell
 strawberry upgrade annotated-union .
-```
