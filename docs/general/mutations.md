@@ -1,18 +1,12 @@
 ---
-title: Mutations
+title: الطفرات (Mutations)
 ---
 
-# Mutations
+# الطفرات (Mutations)
 
-As opposed to queries, mutations in GraphQL represent operations that modify
-server-side data and/or cause side effects on the server. For example, you can
-have a mutation that creates a new instance in your application or a mutation
-that sends an email. Like in queries, they accept parameters and can return
-anything a regular field can, including new types and existing object types.
-This can be useful for fetching the new state of an object after an update.
+على عكس الاستعلامات (queries)، تمثل الطفرات (mutations) في GraphQL عمليات تعديل البيانات على جانب الخادم و/أو تتسبب في آثار جانبية على الخادم. على سبيل المثال، يمكنك الحصول على طفرة تنشئ مثيلاً جديدًا في تطبيقك أو طفرة ترسل بريدًا إلكترونيًا. كما هو الحال في الاستعلامات، فإنها تقبل المعلمات ويمكنها إرجاع أي شيء يمكن أن يرجعه حقل عادي، بما في ذلك الأنواع الجديدة وأنواع الكائنات الموجودة. يمكن أن يكون هذا مفيدًا لجلب الحالة الجديدة لكائن بعد التحديث.
 
-Let's improve our books project from the [Getting started tutorial](../index.md)
-and implement a mutation that is supposed to add a book:
+دعنا نحسن مشروع الكتب الخاص بنا من [البرنامج التعليمي للبدء](../index.md) وننفذ طفرة من المفترض أن تضيف كتابًا:
 
 ```python
 import strawberry
@@ -39,12 +33,9 @@ class Mutation:
 schema = strawberry.Schema(query=Query, mutation=Mutation)
 ```
 
-Like queries, mutations are defined in a class that is then passed to the Schema
-function. Here we create an `addBook` mutation that accepts a title and an
-author and returns a `Book` type.
+مثل الاستعلامات، يتم تعريف الطفرات في فئة يتم تمريرها بعد ذلك إلى دالة Schema. هنا نقوم بإنشاء طفرة `addBook` تقبل عنوانًا ومؤلفًا وتعيد نوع `Book`.
 
-We would send the following GraphQL document to our server to execute the
-mutation:
+سنرسل مستند GraphQL التالي إلى خادمنا لتنفيذ الطفرة:
 
 ```graphql
 mutation {
@@ -54,20 +45,15 @@ mutation {
 }
 ```
 
-The `addBook` mutation is a simplified example. In a real-world application
-mutations will often need to handle errors and communicate those errors back to
-the client. For example we might want to return an error if the book already
-exists.
+طفرة `addBook` هي مثال مبسط. في تطبيق حقيقي، ستحتاج الطفرات غالبًا إلى التعامل مع الأخطاء وإبلاغ تلك الأخطاء مرة أخرى إلى العميل. على سبيل المثال، قد نرغب في إرجاع خطأ إذا كان الكتاب موجودًا بالفعل.
 
-You can checkout our documentation on
-[dealing with errors](/docs/guides/errors#expected-errors) to learn how to
-return a union of types from a mutation.
+يمكنك الاطلاع على وثائقنا حول [التعامل مع الأخطاء](/docs/guides/errors#expected-errors) لمعرفة كيفية إرجاع اتحاد من الأنواع من طفرة.
 
-## Mutations without returned data
+## الطفرات بدون بيانات مُرجعة (Mutations without returned data)
 
-It is also possible to write a mutation that doesn't return anything.
+من الممكن أيضًا كتابة طفرة لا تعيد أي شيء.
 
-This is mapped to a `Void` GraphQL scalar, and always returns `null`
+يتم تعيين هذا إلى `Void` GraphQL scalar، ويعيد دائمًا `null`.
 
 <CodeGrid>
 ```python
@@ -88,24 +74,17 @@ type Mutation {
 
 <Note>
 
-Mutations with void-result go against
-[this community-created guide on GQL best practices](https://graphql-rules.com/rules/mutation-payload).
+الطفرات ذات النتيجة الفارغة تتعارض مع [هذا الدليل الذي أنشأه المجتمع حول أفضل ممارسات GQL](https://graphql-rules.com/rules/mutation-payload).
 
 </Note>
 
-## The input mutation extension
+## امتداد طفرة الإدخال (The input mutation extension)
 
-It is usually useful to use a pattern of defining a mutation that receives a
-single [input type](../types/input-types) argument called `input`.
+من المفيد عادةً استخدام نمط تعريف طفرة تستقبل وسيطًا واحدًا من [نوع الإدخال (input type)](../types/input-types) يسمى `input`.
 
-Strawberry provides the
-[`InputMutationExtension`](../extensions/input-mutation.md), a
-[field extension](../guides/field-extensions.md) that automatically creates an
-input type for you, whose attributes are the same as the arguments in the
-resolver.
+توفر Strawberry امتداد [`InputMutationExtension`](../extensions/input-mutation.md)، وهو [امتداد حقل](../guides/field-extensions.md) ينشئ تلقائيًا نوع إدخال لك، تكون سماته هي نفسها وسائط المحلل (resolver).
 
-For example, suppose we want the mutation defined in the section above to be an
-input mutation. We can add the `InputMutationExtension` to the field like this:
+على سبيل المثال، لنفترض أننا نريد أن تكون الطفرة المعرفة في القسم أعلاه طفرة إدخال. يمكننا إضافة `InputMutationExtension` إلى الحقل بهذا الشكل:
 
 ```python
 from strawberry.field_extensions import InputMutationExtension
@@ -120,7 +99,7 @@ class Mutation:
         id: strawberry.ID,
         weight: Annotated[
             float,
-            strawberry.argument(description="The fruit's new weight in grams"),
+            strawberry.argument(description="The fruit\"s new weight in grams"),
         ],
     ) -> Fruit:
         fruit = ...  # retrieve the fruit with the given ID
@@ -129,14 +108,14 @@ class Mutation:
         return fruit
 ```
 
-That would generate a schema like this:
+سيؤدي ذلك إلى إنشاء مخطط مثل هذا:
 
 ```graphql
 input UpdateFruitWeightInput {
   id: ID!
 
   """
-  The fruit's new weight in grams
+  The fruit\"s new weight in grams
   """
   weight: Float!
 }
@@ -146,11 +125,9 @@ type Mutation {
 }
 ```
 
-## Nested mutations
+## الطفرات المتداخلة (Nested mutations)
 
-To avoid a graph becoming too large and to improve discoverability, it can be
-helpful to group mutations in a namespace, as described by
-[Apollo's guide on Namespacing by separation of concerns](https://www.apollographql.com/docs/technotes/TN0012-namespacing-by-separation-of-concern/).
+لتجنب أن يصبح الرسم البياني كبيرًا جدًا ولتحسين إمكانية الاكتشاف، قد يكون من المفيد تجميع الطفرات في مساحة اسم (namespace)، كما هو موضح في [دليل Apollo حول تحديد مساحات الأسماء حسب فصل الاهتمامات](https://www.apollographql.com/docs/technotes/TN0012-namespacing-by-separation-of-concern/).
 
 ```graphql
 type Mutation {
@@ -163,9 +140,7 @@ type FruitMutations {
 }
 ```
 
-Since all GraphQL operations are fields, we can define a `FruitMutation` type
-and add mutation fields to it like we could add mutation fields to the root
-`Mutation` type.
+نظرًا لأن جميع عمليات GraphQL هي حقول، يمكننا تعريف نوع `FruitMutation` وإضافة حقول طفرة إليه كما يمكننا إضافة حقول طفرة إلى نوع `Mutation` الجذري.
 
 ```python
 import strawberry
@@ -188,11 +163,10 @@ class Mutation:
 ```
 
 <Note>
-Fields on the root `Mutation` type are resolved serially. Namespace types introduce the potential for mutations to be resolved asynchronously and in parallel because the mutation fields that mutate data are no longer at the root level.
 
-To guarantee serial execution when namespace types are used, clients should use
-aliases to select the root mutation field for each mutation. In the following
-example, once `addFruit` execution is complete, `updateFruitWeight` begins.
+يتم حل الحقول في نوع `Mutation` الجذري بشكل تسلسلي. تقدم أنواع مساحات الأسماء إمكانية حل الطفرات بشكل غير متزامن ومتوازٍ لأن حقول الطفرة التي تعدل البيانات لم تعد على المستوى الجذري.
+
+لضمان التنفيذ التسلسلي عند استخدام أنواع مساحات الأسماء، يجب على العملاء استخدام `aliases` لتحديد حقل الطفرة الجذري لكل طفرة. في المثال التالي، بمجرد اكتمال تنفيذ `addFruit`، يبدأ `updateFruitWeight`.
 
 ```graphql
 mutation (
@@ -213,9 +187,7 @@ mutation (
 }
 ```
 
-For more details, see
-[Apollo's guide on Namespaces for serial mutations](https://www.apollographql.com/docs/technotes/TN0012-namespacing-by-separation-of-concern/#namespaces-for-serial-mutations)
-and
-[Rapid API's Interactive Guide to GraphQL Queries: Aliases and Variables](https://rapidapi.com/guides/graphql-aliases-variables).
+لمزيد من التفاصيل، راجع [دليل Apollo حول مساحات الأسماء للطفرات التسلسلية](https://www.apollographql.com/docs/technotes/TN0012-namespacing-by-separation-of-concern/#namespaces-for-serial-mutations)
+و [دليل Rapid API التفاعلي لاستعلامات GraphQL: Aliases and Variables](https://rapidapi.com/guides/graphql-aliases-variables).
 
 </Note>
