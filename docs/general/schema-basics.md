@@ -1,28 +1,20 @@
 ---
-title: Schema basics
+title: أساسيات المخطط (Schema)
 ---
 
-# Schema basics
+# أساسيات المخطط (Schema)
 
-GraphQL servers use a **schema** to describe the shape of the data. The schema
-defines a hierarchy of **types** with fields that are populated from data
-stores. The schema also specifies exactly which queries and mutations are
-available for clients to execute.
+تستخدم خوادم GraphQL **مخططًا (schema)** لوصف شكل البيانات. يحدد المخطط تسلسلاً هرميًا من **الأنواع (types)** مع حقول يتم ملؤها من مخازن البيانات. يحدد المخطط أيضًا بالضبط ما هي الاستعلامات (queries) والطفرات (mutations) المتاحة للعملاء لتنفيذها.
 
-This guide describes the basic building blocks of a schema and how to use
-Strawberry to create one.
+يصف هذا الدليل لبنات البناء الأساسية للمخطط وكيفية استخدام Strawberry لإنشاء واحد.
 
-## Schema definition language (SDL)
+## لغة تعريف المخطط (SDL)
 
-There are two approaches for creating the schema for a GraphQL server. One is
-called “schema-first” and the other is called “code-first”. Strawberry _only_
-supports code-first schemas. Before diving into code-first, let’s first explain
-what the Schema definition language is.
+هناك نهجان لإنشاء مخطط لخادم GraphQL. أحدهما يسمى "المخطط أولاً" (schema-first) والآخر يسمى "الكود أولاً" (code-first). تدعم Strawberry مخططات "الكود أولاً" *فقط*. قبل الغوص في "الكود أولاً"، دعنا نشرح أولاً ما هي لغة تعريف المخطط.
 
-Schema first works using the Schema Definition Language of GraphQL, which is
-included in the GraphQL spec.
+يعمل نهج "المخطط أولاً" باستخدام لغة تعريف المخطط الخاصة بـ GraphQL، والتي تم تضمينها في مواصفات GraphQL.
 
-Here’s an example of schema defined using the SDL:
+إليك مثال على مخطط تم تعريفه باستخدام SDL:
 
 ```graphql
 type Book {
@@ -36,23 +28,19 @@ type Author {
 }
 ```
 
-The schema defines all the types and relationships between them. With this we
-enable client developers to see exactly what data is available and request a
-specific subset of that data.
+يحدد المخطط جميع الأنواع والعلاقات بينها. بهذا نتمكن من تمكين مطوري العملاء من رؤية البيانات المتاحة بالضبط وطلب مجموعة فرعية محددة من تلك البيانات.
 
 <Note>
 
-The `!` sign specifies that a field is non-nullable.
+تحدد علامة `!` أن الحقل غير قابل للإلغاء (non-nullable).
 
 </Note>
 
-Notice that the schema doesn’t specify how to get the data. That comes later
-when defining the resolvers.
+لاحظ أن المخطط لا يحدد كيفية الحصول على البيانات. يأتي ذلك لاحقًا عند تعريف المحللات (resolvers).
 
-## Code first approach
+## نهج الكود أولاً (Code first approach)
 
-As mentioned Strawberry uses a code first approach. The previous schema would
-look like this in Strawberry
+كما ذكرنا، تستخدم Strawberry نهج "الكود أولاً". سيبدو المخطط السابق بهذا الشكل في Strawberry:
 
 ```python
 import typing
@@ -71,58 +59,48 @@ class Author:
     books: typing.List[Book]
 ```
 
-As you can see the code maps almost one to one with the schema, thanks to
-python’s type hints feature.
+كما ترى، الكود يطابق المخطط تقريبًا واحدًا لواحد، بفضل ميزة تلميحات النوع (type hints) في Python.
 
-Notice that here we are also not specifying how to fetch data, that will be
-explained in the resolvers section.
+لاحظ أننا هنا أيضًا لا نحدد كيفية جلب البيانات، سيتم شرح ذلك في قسم المحللات (resolvers).
 
-## Supported types
+## الأنواع المدعومة (Supported types)
 
-GraphQL supports a few different types:
+يدعم GraphQL بضعة أنواع مختلفة:
 
-- Scalar types
-- Object types
-- The Query type
-- The Mutation type
-- Input types
+- أنواع سكالار (Scalar types)
+- أنواع الكائنات (Object types)
+- نوع الاستعلام (Query type)
+- نوع الطفرة (Mutation type)
+- أنواع الإدخال (Input types)
 
-## Scalar types
+## أنواع سكالار (Scalar types)
 
 <!--alex ignore-->
 
-Scalar types are similar to Python primitive types. Here’s the list of the
-default scalar types in GraphQL:
+أنواع سكالار تشبه أنواع Python الأولية. إليك قائمة بأنواع سكالار الافتراضية في GraphQL:
 
-- Int, a signed 32-bit integer, maps to python’s int
-- Float, a signed double-precision floating-point value, maps to python’s float
-- String, maps to python’s str
-- Boolean, true or false, maps to python’s bool
-- ID, a unique identifier that usually used to refetch an object or as the key
-  for a cache. Serialized as string and available as `strawberry.ID(“value”)`
-- `UUID`, a [UUID](https://docs.python.org/3/library/uuid.html#uuid.UUID) value
-  serialized as a string
+- Int، عدد صحيح موقع 32 بت، يطابق int في Python
+- Float، قيمة نقطة عائمة مزدوجة الدقة موقعة، يطابق float في Python
+- String، يطابق str في Python
+- Boolean، صحيح أو خطأ، يطابق bool في Python
+- ID، معرف فريد يستخدم عادةً لإعادة جلب كائن أو كمفتاح لذاكرة التخزين المؤقت. يتم تسلسله كسلسلة نصية ومتاح كـ `strawberry.ID(“value”)`
+- `UUID`، قيمة [UUID](https://docs.python.org/3/library/uuid.html#uuid.UUID) يتم تسلسلها كسلسلة نصية
 
 <Note>
 
-Strawberry also includes support for date, time and datetime objects, they are
-not officially included with the GraphQL spec, but they are usually needed in
-most servers. They are serialized as ISO-8601.
+تتضمن Strawberry أيضًا دعمًا لكائنات التاريخ (date)، الوقت (time) والتاريخ والوقت (datetime)، وهي غير مدرجة رسميًا في مواصفات GraphQL، ولكن عادةً ما تكون مطلوبة في معظم الخوادم. يتم تسلسلها بتنسيق ISO-8601.
 
 </Note>
 
 <!--alex ignore-->
 
-These primitives work for the majority of use cases, but you can also specify
-your [own scalar types](/docs/types/scalars#custom-scalars).
+تعمل هذه الأوليات لغالبية حالات الاستخدام، ولكن يمكنك أيضًا تحديد [أنواع سكالار الخاصة بك](/docs/types/scalars#custom-scalars).
 
-## Object types
+## أنواع الكائنات (Object types)
 
-Most of the types you define in a GraphQL schema are object types. An object
-type contains a collection of fields, each of which can be either a scalar type
-or another object type.
+معظم الأنواع التي تحددها في مخطط GraphQL هي أنواع كائنات. يحتوي نوع الكائن على مجموعة من الحقول، يمكن أن يكون كل منها إما نوع سكالار أو نوع كائن آخر.
 
-Object types can refer to each other, as we had in our schema earlier:
+يمكن لأنواع الكائنات أن تشير إلى بعضها البعض، كما كان لدينا في مخططنا سابقًا:
 
 ```python
 import typing
@@ -141,18 +119,13 @@ class Author:
     books: typing.List[Book]
 ```
 
-## Providing data to fields
+## توفير البيانات للحقول (Providing data to fields)
 
-In the above schema, a `Book` has an `author` field and an `Author` has a
-`books` field, yet we do not know how our data can be mapped to fulfil the
-structure of the promised schema.
+في المخطط أعلاه، يحتوي `Book` على حقل `author` ويحتوي `Author` على حقل `books` ومع ذلك لا نعرف كيف يمكن مطابقة بياناتنا لتحقيق بنية المخطط الموعود.
 
-To achieve this, we introduce the concept of the
-[_resolver_](../types/resolvers.md) that provides some data to a field through a
-function.
+لتحقيق ذلك، نقدم مفهوم [_المحلل (resolver)_](../types/resolvers.md) الذي يوفر بعض البيانات لحقل من خلال دالة.
 
-Continuing with this example of books and authors, resolvers can be defined to
-provide values to the fields:
+استمرارًا مع هذا المثال للكتب والمؤلفين، يمكن تعريف المحللات لتوفير قيم للحقول:
 
 ```python
 def get_author_for_book(root) -> "Author":
@@ -185,26 +158,17 @@ class Query:
     books: typing.List[Book] = strawberry.field(resolver=get_books_for_author)
 ```
 
-These functions provide the `strawberry.field` with the ability to render data
-to the GraphQL query upon request and are the backbone of all GraphQL APIs.
+توفر هذه الدوال لـ `strawberry.field` القدرة على تقديم البيانات لاستعلام GraphQL عند الطلب وهي العمود الفقري لجميع واجهات برمجة تطبيقات GraphQL.
 
-This example is trivial since the resolved data is entirely static. However,
-when building more complex APIs, these resolvers can be written to map data from
-databases, e.g. making SQL queries using SQLAlchemy, and other APIs, e.g. making
-HTTP requests using aiohttp.
+هذا المثال بسيط لأن البيانات التي يتم حلها ثابتة تمامًا. ومع ذلك، عند بناء واجهات برمجة تطبيقات أكثر تعقيدًا، يمكن كتابة هذه المحللات لمطابقة البيانات من قواعد البيانات، على سبيل المثال إجراء استعلامات SQL باستخدام SQLAlchemy، وواجهات برمجة تطبيقات أخرى، على سبيل المثال إجراء طلبات HTTP باستخدام aiohttp.
 
-For more information and detail on the different ways to write resolvers, see
-the [resolvers section](../types/resolvers.md).
+لمزيد من المعلومات والتفاصيل حول الطرق المختلفة لكتابة المحللات، راجع [قسم المحللات](../types/resolvers.md).
 
-## The Query type
+## نوع الاستعلام (Query type)
 
-The `Query` type defines exactly which GraphQL queries (i.e., read operations)
-clients can execute against your data. It resembles an object type, but its name
-is always `Query`.
+يحدد نوع `Query` بالضبط ما هي استعلامات GraphQL (أي عمليات القراءة) التي يمكن للعملاء تنفيذها مقابل بياناتك. إنه يشبه نوع الكائن، لكن اسمه دائمًا هو `Query`.
 
-Each field of the `Query` type defines the name and return type of a different
-supported query. The `Query` type for our example schema might resemble the
-following:
+يحدد كل حقل من نوع `Query` الاسم ونوع الإرجاع لاستعلام مدعوم مختلف. قد يشبه نوع `Query` لمخطط المثال الخاص بنا ما يلي:
 
 ```python
 @strawberry.type
@@ -213,20 +177,15 @@ class Query:
     authors: typing.List[Author]
 ```
 
-This Query type defines two available queries: books and authors. Each query
-returns a list of the corresponding type.
+يحدد نوع الاستعلام هذا استعلامين متاحين: books و authors. يعيد كل استعلام قائمة من النوع المقابل.
 
-With a REST-based API, books and authors would probably be returned by different
-endpoints (e.g., /api/books and /api/authors). The flexibility of GraphQL
-enables clients to query both resources with a single request.
+مع واجهة برمجة تطبيقات قائمة على REST، من المحتمل أن يتم إرجاع books و authors بواسطة نقاط نهاية مختلفة (على سبيل المثال، /api/books و /api/authors). تمكن مرونة GraphQL العملاء من الاستعلام عن كلا الموردين بطلب واحد.
 
-### Structuring a query
+### هيكلة الاستعلام (Structuring a query)
 
-When your clients build queries to execute against your data graph, those
-queries match the shape of the object types you define in your schema.
+عندما يبني عملاؤك استعلامات لتنفيذها مقابل رسم البيانات الخاص بك، فإن تلك الاستعلامات تطابق شكل أنواع الكائنات التي تحددها في مخططك.
 
-Based on our example schema so far, a client could execute the following query,
-which requests both a list of all book titles and a list of all author names:
+بناءً على مخطط المثال الخاص بنا حتى الآن، يمكن للعميل تنفيذ الاستعلام التالي، الذي يطلب كلاً من قائمة بجميع عناوين الكتب وقائمة بجميع أسماء المؤلفين:
 
 ```graphql
 query {
@@ -240,8 +199,7 @@ query {
 }
 ```
 
-Our server would then respond to the query with results that match the query's
-structure, like so:
+سيستجيب خادمنا بعد ذلك للاستعلام بنتائج تطابق بنية الاستعلام، مثل هذا:
 
 ```json
 {
@@ -252,12 +210,9 @@ structure, like so:
 }
 ```
 
-Although it might be useful in some cases to fetch these two separate lists, a
-client would probably prefer to fetch a single list of books, where each book's
-author is included in the result.
+على الرغم من أنه قد يكون مفيدًا في بعض الحالات جلب هاتين القائمتين المنفصلتين، إلا أن العميل سيفضل على الأرجح جلب قائمة واحدة من الكتب، حيث يتم تضمين مؤلف كل كتاب في النتيجة.
 
-Because our schema's Book type has an author field of type Author, a client
-could structure their query like so:
+نظرًا لأن نوع Book في مخططنا يحتوي على حقل author من نوع Author، يمكن للعميل هيكلة استعلامه مثل هذا:
 
 ```graphql
 query {
@@ -270,8 +225,7 @@ query {
 }
 ```
 
-And once again, our server would respond with results that match the query's
-structure:
+ومرة أخرى، سيستجيب خادمنا بنتائج تطابق بنية الاستعلام:
 
 ```json
 {
@@ -283,15 +237,11 @@ structure:
 }
 ```
 
-## The Mutation type
+## نوع الطفرة (Mutation type)
 
-The `Mutation` type is similar in structure and purpose to the Query type.
-Whereas the Query type defines your data's supported read operations, the
-`Mutation` type defines supported write operations.
+نوع `Mutation` مشابه في البنية والغرض لنوع Query. بينما يحدد نوع Query عمليات القراءة المدعومة لبياناتك، يحدد نوع `Mutation` عمليات الكتابة المدعومة.
 
-Each field of the `Mutation` type defines the signature and return type of a
-different mutation. The `Mutation` type for our example schema might resemble
-the following:
+يحدد كل حقل من نوع `Mutation` التوقيع ونوع الإرجاع لطفرة مختلفة. قد يشبه نوع `Mutation` لمخطط المثال الخاص بنا ما يلي:
 
 ```python
 @strawberry.type
@@ -300,24 +250,17 @@ class Mutation:
     def add_book(self, title: str, author: str) -> Book: ...
 ```
 
-This Mutation type defines a single available mutation, `addBook`. The mutation
-accepts two arguments (title and author) and returns a newly created Book
-object. As you'd expect, this Book object conforms to the structure that we
-defined in our schema.
+يحدد نوع الطفرة هذا طفرة واحدة متاحة، `addBook`. تقبل الطفرة وسيطين (title و author) وتعيد كائن Book تم إنشاؤه حديثًا. كما تتوقع، يتوافق كائن Book هذا مع البنية التي حددناها في مخططنا.
 
 <Note>
 
-Strawberry converts fields names from snake case to camel case by default. This
-can be changed by specifying a
-[custom `StrawberryConfig` on the schema](../types/schema-configurations.md)
+تقوم Strawberry بتحويل أسماء الحقول من snake case إلى camel case افتراضيًا. يمكن تغيير ذلك عن طريق تحديد [تكوين `StrawberryConfig` مخصص على المخطط](../types/schema-configurations.md)
 
 </Note>
 
-### Structuring a mutation
+### هيكلة الطفرة (Structuring a mutation)
 
-Like queries, mutations match the structure of your schema's type definitions.
-The following mutation creates a new Book and requests certain fields of the
-created object as a return value:
+مثل الاستعلامات، تطابق الطفرات بنية تعريفات الأنواع في مخططك. تقوم الطفرة التالية بإنشاء Book جديد وتطلب حقولاً معينة من الكائن الذي تم إنشاؤه كقيمة إرجاع:
 
 ```graphql
 mutation {
@@ -330,8 +273,7 @@ mutation {
 }
 ```
 
-As with queries, our server would respond to this mutation with a result that
-matches the mutation's structure, like so:
+كما هو الحال مع الاستعلامات، سيستجيب خادمنا لهذه الطفرة بنتيجة تطابق بنية الطفرة، مثل هذا:
 
 ```json
 {
@@ -346,13 +288,11 @@ matches the mutation's structure, like so:
 }
 ```
 
-## Input types
+## أنواع الإدخال (Input types)
 
-Input types are special object types that allow you to pass objects as arguments
-to queries and mutations (as opposed to passing only scalar types). Input types
-help keep operation signatures clean.
+أنواع الإدخال هي أنواع كائنات خاصة تسمح لك بتمرير كائنات كوسائط للاستعلامات والطفرات (بدلاً من تمرير أنواع سكالار فقط). تساعد أنواع الإدخال في الحفاظ على نظافة تواقيع العمليات.
 
-Consider our previous mutation to add a book:
+فكر في طفرتنا السابقة لإضافة كتاب:
 
 ```python
 @strawberry.type
@@ -361,12 +301,9 @@ class Mutation:
     def add_book(self, title: str, author: str) -> Book: ...
 ```
 
-Instead of accepting two arguments, this mutation could accept a single input
-type that includes all of these fields. This comes in extra handy if we decide
-to accept an additional argument in the future, such as a publication date.
+بدلاً من قبول وسيطين، يمكن لهذه الطفرة قبول نوع إدخال واحد يتضمن كل هذه الحقول. هذا مفيد بشكل إضافي إذا قررنا قبول وسيط إضافي في المستقبل، مثل تاريخ النشر.
 
-An input type's definition is similar to an object type's, but it uses the input
-keyword:
+تعريف نوع الإدخال مشابه لنوع الكائن، ولكنه يستخدم الكلمة المفتاحية input:
 
 ```python
 @strawberry.input
@@ -381,9 +318,7 @@ class Mutation:
     def add_book(self, book: AddBookInput) -> Book: ...
 ```
 
-Not only does this facilitate passing the AddBookInput type around within our
-schema, it also provides a basis for annotating fields with descriptions that
-are automatically exposed by GraphQL-enabled tools:
+لا يسهل هذا تمرير نوع AddBookInput داخل مخططنا فحسب، بل يوفر أيضًا أساسًا لتعليق الحقول بالأوصاف التي يتم كشفها تلقائيًا بواسطة الأدوات التي تدعم GraphQL:
 
 ```python
 @strawberry.input
@@ -392,11 +327,9 @@ class AddBookInput:
     author: str = strawberry.field(description="The name of the author")
 ```
 
-Input types can sometimes be useful when multiple operations require the exact
-same set of information, but you should reuse them sparingly. Operations might
-eventually diverge in their sets of required arguments.
+يمكن أن تكون أنواع الإدخال مفيدة أحيانًا عندما تتطلب عمليات متعددة نفس المجموعة بالضبط من المعلومات، ولكن يجب عليك إعادة استخدامها باعتدال. قد تتباعد العمليات في النهاية في مجموعات الوسائط المطلوبة الخاصة بها.
 
-## More
+## المزيد (More)
 
-If you want to learn more about schema design make sure you follow the
-[documentation provided by Apollo](https://www.apollographql.com/docs/apollo-server/schema/schema/#growing-with-a-schema).
+إذا كنت تريد معرفة المزيد عن تصميم المخطط، فتأكد من اتباع [الوثائق المقدمة من Apollo](https://www.apollographql.com/docs/apollo-server/schema/schema/#growing-with-a-schema).
+
