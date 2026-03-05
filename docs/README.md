@@ -16,7 +16,7 @@ title: Strawberry docs
 - [Errors](./errors)
 - [Upgrading Strawberry](./general/upgrades.md)
 - [Breaking changes](./breaking-changes.md)
-- [FAQ](./faq.md)
+- [FAQ](./general/faq.md)
 
 ## Types
 
