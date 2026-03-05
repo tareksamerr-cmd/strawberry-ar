@@ -1,8 +1,8 @@
 ---
-title: List of breaking changes and deprecations
+title: قائمة التغييرات الجذرية والإلغاءات
 ---
 
-# List of breaking changes and deprecations
+# قائمة التغييرات الجذرية والإلغاءات
 
 - [Version 0.285.0 - 10 November 2025](./breaking-changes/0.285.0.md)
 - [Version 0.283.0 - 6 October 2025](./breaking-changes/0.283.0.md)
